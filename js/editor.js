@@ -10,7 +10,7 @@
 
 import { SECTIONS, ROLES, blank, upgrade, get, set } from './schema.js';
 import { apply, fill, replay } from './preview.js';
-import { asJSON, asCSS, asGuide } from './export.js';
+import { asJSON, asCSS, asGuide, asTokens } from './export.js';
 
 const KEY = 'aestheticsStudio.v1';
 const $ = (sel, el = document) => el.querySelector(sel);
@@ -142,7 +142,8 @@ function refresh () {
 
 function renderExport () {
   const a = current();
-  const text = S.tab === 'json' ? asJSON(a) : S.tab === 'css' ? asCSS(a) : asGuide(a);
+  const text = S.tab === 'json' ? asJSON(a) : S.tab === 'css' ? asCSS(a)
+    : S.tab === 'tokens' ? asTokens(a) : asGuide(a);
   $('#out').value = text;
   for (const b of document.querySelectorAll('[data-tab]')) {
     b.classList.toggle('on', b.dataset.tab === S.tab);
@@ -152,7 +153,8 @@ function renderExport () {
 function download () {
   const a = current();
   const name = S.tab === 'json' ? `${a.id}.aesthetic.json`
-    : S.tab === 'css' ? `${a.id}.css` : `${a.id}.md`;
+    : S.tab === 'css' ? `${a.id}.css`
+    : S.tab === 'tokens' ? `${a.id}.tokens.json` : `${a.id}.md`;
   const blob = new Blob([$('#out').value], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
   const el = Object.assign(document.createElement('a'), { href: url, download: name });

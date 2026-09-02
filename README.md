@@ -1,11 +1,11 @@
 # Aesthetics
 
 Timothy's aesthetics — Victoria, Starful Gothic, Aeros, Golf 97, Girando,
-Stelaine, Carca, and whatever comes next. Each one is a whole style guide: a
-story (most of them are places in the mind), a design philosophy, a voice, and
-every parameter — colour, type, shape, space, depth, texture, decor, motion —
-it takes to build something *in* that aesthetic without asking any further
-questions.
+Stelaine, Carca, Fantaccio, Hikari, and whatever comes next. Each one is a
+whole style guide: a story (most of them are places in the mind), a design
+philosophy, a voice, and every parameter — colour, type, shape, space, depth,
+texture, decor, motion — it takes to build something *in* that aesthetic
+without asking any further questions.
 
 **The studio wears the aesthetic it is editing.** Picking one on the left
 repaints the entire page, not a preview pane: the buttons you are clicking,
@@ -28,11 +28,14 @@ The file carries the philosophy and the voice alongside the tokens, so the
 guide export isn't decoration — it is the part that says what the numbers
 are *for*.
 
-Three of the seven are seeded from real, committed data — Bureau's style
+Three of the nine are seeded from real, committed data — Bureau's style
 system: Victoria from Victorian, Starful Gothic from Starry Sidekick, Aeros
-from Aero. The other four are **drafts**: every value is a starting guess,
-and their stories say so in the first line. Rewrite them; a draft's story is
-a placeholder, not canon.
+from Aero. The rest are **drafts**, in two kinds. Golf 97, Girando, Stelaine
+and Carca were seeded from their names alone: every value is a guess and
+their stories say so in the first line, so rewrite them — a guessed story is
+a placeholder, not canon. Fantaccio and Hikari were briefed rather than
+guessed, so their story, philosophy and voice are real and only the numbers
+are first attempts; the difference is recorded in each file's `notes`.
 
 ## Running it
 
@@ -59,13 +62,31 @@ carry a second set of seven, and **Plain room** drops the *editor chrome* back
 to neutral grey when an aesthetic is too loud to work inside — the demo stays
 painted, because plain is for the tools, never the picture.
 
-The three exports, per aesthetic:
+The four exports, per aesthetic:
 
 - **JSON** — the aesthetic itself (`girando.aesthetic.json`). Canonical.
 - **CSS** — the same values as custom properties, prefixed with the id
   (`--girando-accent`), so two aesthetics can coexist on one page.
 - **Guide** — a markdown style guide: story, philosophy, voice, every token,
   and the CSS block, in one hand-overable document.
+- **Tokens** — a [Design Tokens Community Group](https://www.designtokens.org/tr/drafts/format/)
+  file (`girando.tokens.json`), the format Figma, Tokens Studio and Style
+  Dictionary read. This is how an aesthetic leaves the house: hand someone
+  the tokens for the numbers and the guide for what they are *for*.
+
+  It is lossy on purpose. Colour, type, shape, space, depth and motion have
+  real types in the spec and go across cleanly; a role whose hex is also a
+  palette colour is emitted as an alias (`{color.palette.terracotta}`)
+  rather than a second copy of the number, which is the tier-1/tier-2 link
+  the format has nowhere else — so it is worth making them match. The shadow
+  strings are parsed into the spec's composite `{color, offsetX, offsetY,
+  blur, spread}`, so a zero shadow crosses as alpha 0 and Golf 97's bevel
+  crosses as the two shadows it actually is. The discrete choices (corner,
+  entrance, hover, ambient, dividers, texture) have no type in the spec and
+  ride in `$extensions`. **The story, philosophy and voice do not go.** The
+  spec has no document-level prose, and `$extensions` is defined as the part
+  tools may ignore — the wrong home for the load-bearing half of an
+  aesthetic. That is what the guide is for.
 
 ## The format (aesthetic/1)
 
@@ -121,7 +142,7 @@ aesthetic's whole page into `test/shots/`, and checks that the page itself
 repaints, that the discrete choices land as attributes, that entrances run,
 that plain room switches the chrome without touching the demo, and that an
 edit, a revert and the three exports all work. **Look at the screenshots** —
-seven aesthetics wearing one page is the visual claim this makes, and a
+every aesthetic wearing one page is the visual claim this makes, and a
 passing assertion doesn't mean Victoria looks like Victoria.
 
 ## The files

@@ -23,11 +23,13 @@ room that stayed daylight while the desk went dark.
 ## Building something in an aesthetic
 
 When Timothy says "build this in Aeros" (or Victoria, Starful Gothic, Golf 97,
-Girando, Stelaine, Carca), read `library/<id>.aesthetic.json` and follow it.
+Girando, Stelaine, Carca, Fantaccio, Hikari), read
+`library/<id>.aesthetic.json` and follow it.
 **The story, philosophy, do/don't and voice in the file are instructions, not
 flavour** — the numbers say what to use, those say what for. The guide export
 (`asGuide` in `js/export.js`) is the same content written out to hand over
-whole.
+whole; `asTokens` writes the numbers alone as a DTCG token file, for handing
+to a tool rather than a person.
 
 ## The three rules easiest to forget
 

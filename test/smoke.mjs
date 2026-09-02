@@ -2,8 +2,8 @@
 // (scripts/serve.sh) and playwright. Run from the repo root:
 //   node test/smoke.mjs
 // Every value in the printed summary should be truthy and `errors` should be [].
-// One screenshot per aesthetic lands in test/shots/ — look at them: seven
-// aesthetics wearing the whole page is the claim this thing makes.
+// One screenshot per aesthetic lands in test/shots/ — look at them: every
+// aesthetic wearing the whole page is the claim this thing makes.
 import { chromium } from 'playwright';
 import { readFileSync, mkdirSync } from 'node:fs';
 
@@ -105,12 +105,40 @@ const index = JSON.parse(readFileSync(new globalThis.URL('../library/index.json'
   await page.click('[data-tab="json"]');
   const json = JSON.parse(await page.locator('#out').inputValue());
   const jsonOk = json.format === 'aesthetic/1' && json.decor.ornament === '❦' && json.motion.hover === 'lift';
+  // The DTCG export: right shape, right units, and the alias fires where a
+  // role's colour is also a palette colour (Hikari's accent is Net blue).
+  await page.click('[data-tab="tokens"]');
+  const tok = JSON.parse(await page.locator('#out').inputValue());
+  const tokensOk = tok.color.$type === 'color'
+    && tok.color.role.bg.$value.colorSpace === 'srgb'
+    && tok.font.size.base.$value.unit === 'px'
+    && tok.motion.duration.speed.$value.value === 180
+    && Array.isArray(tok.motion.easing.default.$value)
+    && tok.elevation.shadow.$value.color.alpha === 0.18
+    && tok.$extensions['com.timothyvlangas.aesthetics'].decor.ornament === '❦';
+  await page.click('[data-id="hikari"]');
+  await page.waitForTimeout(400);
+  const hik = JSON.parse(await page.locator('#out').inputValue());
+  const tokensAlias = hik.color.role.accent.$value === '{color.palette.net-blue}';
+
+  // — a refresh that isn't a replay must not blank the staged content:
+  //   toggling after dark (or typing one character) rebuilds the mood chips,
+  //   and they used to come back at opacity 0 and stay there —
+  const chipOpacity = async () => page.evaluate(() =>
+    getComputedStyle(document.querySelector('.pv-chip')).opacity);
+  await page.click('[data-id="victoria"]');
+  await page.waitForTimeout(700);
+  await page.click('#darkbtn');
+  await page.waitForTimeout(500);
+  const chipsSurviveDark = Number(await chipOpacity()) > 0.9;
+  await page.click('#darkbtn');
+  await page.waitForTimeout(400);
 
   const summary = { listed: listed === index.length, accentsDiffer, bodiesDiffer,
     attrsCarry, carcaCut, gothicTwinkles, arrived, ornament,
     plainSwitches: chromeBefore !== chromeAfter, demoStillPainted,
     darkShown, darkRepaints: bgLight !== bgDark, darkHiddenOnAeros,
-    editRepaints, editFlagged, reverted, motionControls, guideOk, cssOk, jsonOk,
+    editRepaints, editFlagged, reverted, motionControls, guideOk, cssOk, jsonOk, tokensOk, tokensAlias, chipsSurviveDark,
     errors: errs };
   console.log(JSON.stringify(summary, null, 2));
   await browser.close();

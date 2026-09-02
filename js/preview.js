@@ -122,7 +122,15 @@ export function replay (root) {
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/* The parts of the demo that are content rather than paint. */
+/* The parts of the demo that are content rather than paint.
+
+   Anything rebuilt here is created in the *arrived* state. `fill()` is
+   content and `replay()` is choreography, and the staged-but-not-arrived
+   rule is `opacity: 0` — so a refresh that isn't followed by a replay used
+   to leave the freshly-built chips invisible until you hit Entrance. That is
+   every refresh except picking an aesthetic: toggling after dark, toggling
+   plain room, and typing a single character into any field. replay() clears
+   the class and re-adds it, so the entrance still runs. */
 export function fill (root, a) {
   const q = (sel) => root.querySelector(sel);
   const all = (sel) => root.querySelectorAll(sel);
@@ -133,7 +141,7 @@ export function fill (root, a) {
   const cards = all('.pv-card-copy');
   cards.forEach((el, i) => { el.textContent = s[i + 1] || el.dataset.fallback; });
   q('.pv-chips').innerHTML = (a.mood.length ? a.mood : ['unnamed'])
-    .slice(0, 5).map((m) => `<span class="pv-chip" data-stag>${esc(m)}</span>`).join('');
+    .slice(0, 5).map((m) => `<span class="pv-chip arrived" data-stag>${esc(m)}</span>`).join('');
   q('.pv-swatches').innerHTML = [
     ...ROLES.map(([k, label]) => ({ name: label, hex: (a.color.roles[k] || '') })),
     ...a.color.palette,
