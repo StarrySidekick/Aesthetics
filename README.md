@@ -109,8 +109,14 @@ drift apart. The shape:
   style, space unit, density
 - **elevation & effects** — two shadows, plus **gloss** (a wet highlight),
   **glass** (frosted blur behind the bar) and **grain** (film over the room)
-- **texture** — backdrop kind (none / checker / stars / sheen / grain), its two
-  colours, strength, and free-text notes for what parameters can't say
+- **texture** — backdrop kind, its two colours, strength, and free-text notes
+  for what parameters can't say. Nine kinds: **none**, **checker** (filled
+  cells), **lozenge** (harlequin diamonds), **grid** (ruled lines),
+  **stripe** (wide bands), **courses** (masonry beds), **stars**, **sheen**
+  and **grain**. Reach for the one the aesthetic actually means — checker was
+  the only tiling primitive for a while and five of nine ended up wearing it,
+  with their own notes confessing they wanted stripes or stone or diamonds
+  instead. Victoria is the one that genuinely is a checkerboard.
 - **decor** — an ornament glyph, divider style, and how links underline
 - **motion** — speed, easing, **entrance** (fade / rise / drop / turn / grow),
   **stagger**, **on touch** (lift / glow / tilt / press), **ambient** (drift /

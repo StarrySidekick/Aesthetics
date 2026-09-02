@@ -45,6 +45,39 @@ function backdrop (t, bg) {
   if (kind === 'grain') {
     return `repeating-linear-gradient(0deg, ${a} 0 2px, ${b} 2px 4px)`;
   }
+  /* Harlequin: the checker turned 45°. Two copies of one diagonal gradient,
+     the second offset by half a tile — offsetting is what turns triangles
+     into diamonds, which is the whole difference between argyle and a
+     checkerboard standing on its corner. */
+  if (kind === 'lozenge') {
+    /* A diamond is cut, not drawn. Background layers compose by union, never
+       intersection, so the way to get a lozenge is to paint the tile's four
+       corner triangles in the field colour and let the base show through the
+       middle. Both cuts use the same opaque `b`, which is what makes the
+       union safe. Drawing it the other way — two same-angle layers half a
+       tile apart — is the well-known CSS *checkerboard*, which is the one
+       thing this must not be. */
+    const cut = (deg) => `linear-gradient(${deg}, ${b} 25%, transparent 25%, transparent 75%, ${b} 75%)`;
+    return `${cut('45deg')} 0 0 / 56px 56px, ${cut('-45deg')} 0 0 / 56px 56px, ${a}`;
+  }
+  /* Ruled lines rather than filled cells — graph paper, a blueprint, the
+     floor of a network. `a` is the line, `b` is the ground. */
+  if (kind === 'grid') {
+    return `repeating-linear-gradient(0deg, ${a} 0 1px, transparent 1px 40px), ` +
+      `repeating-linear-gradient(90deg, ${a} 0 1px, transparent 1px 40px), ${b}`;
+  }
+  /* Wide parallel bands: a mown fairway, an awning, a deckchair. Vertical,
+     because that is how a mower leaves a pitch when you look up it. */
+  if (kind === 'stripe') {
+    return `repeating-linear-gradient(90deg, ${a} 0 48px, ${b} 48px 96px)`;
+  }
+  /* Coursed masonry — a thin joint every course, the blocks flat. Only the
+     beds, not a running bond: staggering the head joints needs a tile cut in
+     two axes, and a gradient only cuts in one. `texture.notes` carries the
+     rest until there is a real reason to draw it. */
+  if (kind === 'courses') {
+    return `repeating-linear-gradient(0deg, ${b} 0 2px, ${a} 2px 34px)`;
+  }
   return bg;
 }
 

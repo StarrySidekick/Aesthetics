@@ -139,11 +139,11 @@
     "character": "Solid. Things land with weight and stay put; nothing floats."
   },
   "texture": {
-    "kind": "checker",
+    "kind": "courses",
     "a": "#E4DAC6",
-    "b": "#DCD2BC",
+    "b": "#CFC2A6",
     "alpha": 1,
-    "notes": "Coursed-stone checker, joints barely darker than the blocks. Hard drop shadows — offset, no blur — like noon light on a wall."
+    "notes": "Coursed stone — a joint line every course, blocks flat and barely darker at the bed. A true running bond would stagger the head joints; that needs a tile cut both ways, so it isn't drawn. Hard drop shadows — offset, no blur — like noon light on a wall."
   },
   "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story.",
   "effects": {

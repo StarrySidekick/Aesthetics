@@ -59,17 +59,50 @@
       "glow": "#F4C070"
     },
     "palette": [
-      { "name": "Lacquer", "hex": "#C1272D" },
-      { "name": "Arlecchino", "hex": "#2F7A4F" },
-      { "name": "Cobalt", "hex": "#2A5CA8" },
-      { "name": "Gilt", "hex": "#C99A34" },
-      { "name": "Gesso", "hex": "#F0E6D2" },
-      { "name": "Walnut", "hex": "#5A4029" },
-      { "name": "Verdigris", "hex": "#4E8C82" },
-      { "name": "Guignol", "hex": "#D06A6B" },
-      { "name": "Sawdust", "hex": "#D8C49A" },
-      { "name": "Pitch", "hex": "#2B211A" },
-      { "name": "Ribbon", "hex": "#8A5E9C" }
+      {
+        "name": "Lacquer",
+        "hex": "#C1272D"
+      },
+      {
+        "name": "Arlecchino",
+        "hex": "#2F7A4F"
+      },
+      {
+        "name": "Cobalt",
+        "hex": "#2A5CA8"
+      },
+      {
+        "name": "Gilt",
+        "hex": "#C99A34"
+      },
+      {
+        "name": "Gesso",
+        "hex": "#F0E6D2"
+      },
+      {
+        "name": "Walnut",
+        "hex": "#5A4029"
+      },
+      {
+        "name": "Verdigris",
+        "hex": "#4E8C82"
+      },
+      {
+        "name": "Guignol",
+        "hex": "#D06A6B"
+      },
+      {
+        "name": "Sawdust",
+        "hex": "#D8C49A"
+      },
+      {
+        "name": "Pitch",
+        "hex": "#2B211A"
+      },
+      {
+        "name": "Ribbon",
+        "hex": "#8A5E9C"
+      }
     ]
   },
   "type": {
@@ -127,11 +160,11 @@
     "character": "Nothing starts itself. Things are lowered in from above, overshoot a little, and bob until they settle — a marionette finding its feet. Between actions everything sways very slightly, because everything is hanging."
   },
   "texture": {
-    "kind": "checker",
-    "a": "#E0D3B4",
-    "b": "#D6C7A4",
-    "alpha": 0.7,
-    "notes": "Standing in for the real thing: this wants a harlequin lozenge — the checker turned 45° into diamonds, lacquer and gilt at low strength — which the backdrop parameter can't say yet. Under it, linden grain running one way and a scatter of sawdust. The floor of a workshop that is also a stage."
+    "kind": "lozenge",
+    "a": "#C9A96A",
+    "b": "#EFE6CF",
+    "alpha": 0.5,
+    "notes": "Harlequin lozenges — gilt diamonds on gesso, the costume and the toy-theatre flat. Under them it wants linden grain running one way and a scatter of sawdust, which the one backdrop slot can't also say. The floor of a workshop that is also a stage."
   },
   "notes": "Story, philosophy and voice are from Timothy's brief; the numbers are first guesses. Sits between Girando (warm, turning, a piazza) and Carca (stone, heraldic, walled) and is louder than either. Type is deliberately not Didone — Stelaine owns that — so the display face is a fat slab, the playbill and fairground register rather than the elegant one. Bookman and Clarendon do the Italian playbill; Baskerville does the French storybook. On the name: fantoccio (with an o) is the Italian for puppet or dummy; fantaccio reads as a foot soldier, from fante. Keeping Timothy's spelling — an army of foot soldiers is arguably the better word for a puppet revolution — but the aesthetic answers to both. Accent appears in the palette, so it aliases on token export."
 }

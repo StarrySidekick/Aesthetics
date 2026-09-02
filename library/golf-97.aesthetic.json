@@ -139,11 +139,11 @@
     "character": "Instant. Screens cut, nothing tweens — the machine had no frames to spare."
   },
   "texture": {
-    "kind": "checker",
+    "kind": "stripe",
     "a": "#BFD8A6",
     "b": "#A9C98E",
     "alpha": 1,
-    "notes": "Mown-stripe fairway checker. The shadows are bevels: light from the top-left, always."
+    "notes": "Mown fairway stripes, the bands a mower leaves when you look up the hole. The shadows are bevels: light from the top-left, always."
   },
   "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story.",
   "effects": {

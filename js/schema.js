@@ -24,7 +24,8 @@ export const ROLES = [
   ['glow',    'Glow',       'The accent’s highlight — focus rings, shimmer, the lit edge.'],
 ];
 
-export const TEXTURES = ['none', 'checker', 'stars', 'sheen', 'grain'];
+export const TEXTURES = ['none', 'checker', 'lozenge', 'grid', 'stripe',
+  'courses', 'stars', 'sheen', 'grain'];
 export const ENTRANCES = ['none', 'fade', 'rise', 'drop', 'turn', 'grow'];
 export const HOVERS = ['none', 'lift', 'glow', 'tilt', 'press'];
 export const AMBIENTS = ['none', 'drift', 'twinkle', 'shimmer'];

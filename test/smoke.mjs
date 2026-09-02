@@ -12,6 +12,8 @@ const CHROME = process.env.ACT_CHROME;   // e.g. /opt/pw-browsers/chromium
 mkdirSync(new globalThis.URL('./shots', import.meta.url).pathname, { recursive: true });
 
 const index = JSON.parse(readFileSync(new globalThis.URL('../library/index.json', import.meta.url), 'utf8'));
+const lib = Object.fromEntries(index.map((id) => [id,
+  JSON.parse(readFileSync(new globalThis.URL(`../library/${id}.aesthetic.json`, import.meta.url), 'utf8'))]));
 
 (async () => {
   const browser = await chromium.launch(CHROME ? { executablePath: CHROME } : {});
@@ -134,11 +136,30 @@ const index = JSON.parse(readFileSync(new globalThis.URL('../library/index.json'
   await page.click('#darkbtn');
   await page.waitForTimeout(400);
 
+  // — every backdrop kind paints something, and the two that are patterns
+  //   rather than flat colour actually lay down layers —
+  const backdropOf = async (id) => {
+    await page.click(`[data-id="${id}"]`);
+    await page.waitForTimeout(400);
+    return page.evaluate(() =>
+      getComputedStyle(document.documentElement).getPropertyValue('--v-backdrop').trim());
+  };
+  const lozenge = await backdropOf('fantaccio');
+  const grid = await backdropOf('hikari');
+  const stripe = await backdropOf('golf-97');
+  const courses = await backdropOf('carca');
+  const newBackdrops = lozenge.includes('45deg') && lozenge.includes('-45deg')
+    && !lozenge.includes('repeating')
+    && lozenge.split('gradient').length === 3
+    && grid.includes('90deg') && stripe.includes('48px') && courses.includes('34px');
+  // checker earned its keep in exactly one place
+  const checkerIsRare = index.filter((id) => lib[id].texture.kind === 'checker').length === 1;
+
   const summary = { listed: listed === index.length, accentsDiffer, bodiesDiffer,
     attrsCarry, carcaCut, gothicTwinkles, arrived, ornament,
     plainSwitches: chromeBefore !== chromeAfter, demoStillPainted,
     darkShown, darkRepaints: bgLight !== bgDark, darkHiddenOnAeros,
-    editRepaints, editFlagged, reverted, motionControls, guideOk, cssOk, jsonOk, tokensOk, tokensAlias, chipsSurviveDark,
+    editRepaints, editFlagged, reverted, motionControls, guideOk, cssOk, jsonOk, tokensOk, tokensAlias, chipsSurviveDark, newBackdrops, checkerIsRare,
     errors: errs };
   console.log(JSON.stringify(summary, null, 2));
   await browser.close();

@@ -59,17 +59,50 @@
       "glow": "#00E8D8"
     },
     "palette": [
-      { "name": "Net blue", "hex": "#0070EC" },
-      { "name": "Data cyan", "hex": "#00E8D8" },
-      { "name": "Panel blue", "hex": "#2E6FA8" },
-      { "name": "Panel red", "hex": "#C8384A" },
-      { "name": "HP amber", "hex": "#F8B800" },
-      { "name": "Plug-in green", "hex": "#38D878" },
-      { "name": "Dark chip", "hex": "#8858C8" },
-      { "name": "PET white", "hex": "#FCFCFC" },
-      { "name": "Undernet", "hex": "#1B1030" },
-      { "name": "Guardrail", "hex": "#7FE8F8" },
-      { "name": "Firewall", "hex": "#F07818" }
+      {
+        "name": "Net blue",
+        "hex": "#0070EC"
+      },
+      {
+        "name": "Data cyan",
+        "hex": "#00E8D8"
+      },
+      {
+        "name": "Panel blue",
+        "hex": "#2E6FA8"
+      },
+      {
+        "name": "Panel red",
+        "hex": "#C8384A"
+      },
+      {
+        "name": "HP amber",
+        "hex": "#F8B800"
+      },
+      {
+        "name": "Plug-in green",
+        "hex": "#38D878"
+      },
+      {
+        "name": "Dark chip",
+        "hex": "#8858C8"
+      },
+      {
+        "name": "PET white",
+        "hex": "#FCFCFC"
+      },
+      {
+        "name": "Undernet",
+        "hex": "#1B1030"
+      },
+      {
+        "name": "Guardrail",
+        "hex": "#7FE8F8"
+      },
+      {
+        "name": "Firewall",
+        "hex": "#F07818"
+      }
     ]
   },
   "type": {
@@ -127,11 +160,11 @@
     "character": "Instant and electric. Windows pop open rather than fade in, one after another the way a chip menu fills; nothing lingers, nothing bounces, and between actions the whole screen holds still and hums."
   },
   "texture": {
-    "kind": "checker",
-    "a": "#C6DCF2",
-    "b": "#B2CFEC",
-    "alpha": 0.75,
-    "notes": "The floor of the Net: a tiled panel grid, six by three in the games. Wants two things this format can't yet say — horizontal scanlines at about 2px, and thin circuit traces running between the tiles with a travelling bright dot. After dark the same grid is a whisper of navy on navy, which is what the toward() walk already does."
+    "kind": "grid",
+    "a": "#8FC4EE",
+    "b": "#DCE9F8",
+    "alpha": 0.7,
+    "notes": "The floor of the Net: a ruled grid of light, guardrails running to the horizon. After dark the same grid is navy on navy, which is what the toward() walk already does. Still wants two things the format can't say — horizontal scanlines at about 2px, and a bright dot travelling the traces."
   },
   "notes": "Story, philosophy and voice are from Timothy's brief; the numbers are first guesses. The after-dark set is doing real work here rather than dimming the lights — daylight is jacked out (the PET, the white plastic, the classroom) and after dark is jacked in (the Net). Colours seeded from the series' published palettes: Net blue #0070EC and data cyan #00E8D8 are the recurring pair. Accent and glow both appear in the palette, so they alias on token export."
 }
