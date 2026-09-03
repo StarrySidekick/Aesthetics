@@ -155,12 +155,40 @@ const lib = Object.fromEntries(index.map((id) => [id,
   // checker earned its keep in exactly one place
   const checkerIsRare = index.filter((id) => lib[id].texture.kind === 'checker').length === 1;
 
+  // — the phone layout: the preview is pinned as its own pane and stays
+  //   visible at every rack height, which is the whole point of it —
+  const phone = await (await browser.newContext({
+    viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true,
+  })).newPage();
+  const phoneErrs = [];
+  phone.on('pageerror', (e) => phoneErrs.push('PHONE: ' + e.message));
+  await phone.goto(URL);
+  await phone.waitForTimeout(800);
+  const rackStep = async () => {
+    const s = await phone.evaluate(() => ({
+      state: document.documentElement.dataset.rack,
+      demoH: Math.round(document.querySelector('.demo').getBoundingClientRect().height),
+      demoPinned: getComputedStyle(document.querySelector('.demo')).position === 'fixed',
+      rackScrolls: getComputedStyle(document.querySelector('.cols')).overflowY === 'auto',
+      pageStuck: document.body.scrollHeight <= globalThis.innerHeight + 4,
+    }));
+    await phone.click('.grip');
+    await phone.waitForTimeout(420);
+    return s;
+  };
+  const steps = [await rackStep(), await rackStep(), await rackStep()];
+  // 200px is the floor the rack is not allowed to cross; nothing may scroll
+  // the page itself, or both panes would slide away together
+  const phoneTwoPane = steps.every((s) => s.demoH >= 200 && s.demoPinned && s.rackScrolls && s.pageStuck);
+  const phoneCycles = steps.map((s) => s.state).join(',') === 'half,up,down';
+  await phone.close();
+
   const summary = { listed: listed === index.length, accentsDiffer, bodiesDiffer,
     attrsCarry, carcaCut, gothicTwinkles, arrived, ornament,
     plainSwitches: chromeBefore !== chromeAfter, demoStillPainted,
     darkShown, darkRepaints: bgLight !== bgDark, darkHiddenOnAeros,
-    editRepaints, editFlagged, reverted, motionControls, guideOk, cssOk, jsonOk, tokensOk, tokensAlias, chipsSurviveDark, newBackdrops, checkerIsRare,
-    errors: errs };
+    editRepaints, editFlagged, reverted, motionControls, guideOk, cssOk, jsonOk, tokensOk, tokensAlias, chipsSurviveDark, newBackdrops, checkerIsRare, phoneTwoPane, phoneCycles,
+    errors: [...errs, ...phoneErrs] };
   console.log(JSON.stringify(summary, null, 2));
   await browser.close();
   const bad = Object.entries(summary).filter(([k, v]) => k !== 'errors' && !v).map(([k]) => k);

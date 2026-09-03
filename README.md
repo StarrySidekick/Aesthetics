@@ -50,6 +50,14 @@ from a phone. Pushing to `main` deploys it (`.github/workflows/pages.yml`
 force-pushes the site to `gh-pages`, which Pages serves; that branch is
 entirely generated — never commit to it).
 
+**On a phone it is two panes.** The demo is pinned along the top and scrolls
+by itself; the controls live in a rack along the bottom that folds through
+three heights — tap **Controls** to cycle half, full, hidden — and scrolls by
+itself too. The aesthetic strip sits under the grip so switching never costs
+a scroll. The rack is not allowed to leave the preview shorter than 200px,
+because a control you can't see the effect of is the thing this layout exists
+to prevent. The desktop three-column room is unchanged above 860px.
+
 Edits live in localStorage as a working copy per aesthetic; the committed file
 shows through until you touch something, and **Revert to file** throws the
 working copy away. Shipping a change is an export: the JSON tab, Copy or

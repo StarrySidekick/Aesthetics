@@ -18,7 +18,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 let LIB = {};            // id → aesthetic, as committed
 let ORDER = [];          // library order, then anything born here
-let S = { edits: {}, order: [], selected: null, dark: false, plain: false, tab: 'guide' };
+let S = { edits: {}, order: [], selected: null, dark: false, plain: false, tab: 'guide', rack: 'half' };
 
 function load () {
   try { S = { ...S, ...(JSON.parse(localStorage.getItem(KEY)) || {}) }; }
@@ -124,6 +124,38 @@ function renderForm () {
     </details>`).join('');
 }
 
+/* ---- the rack ----------------------------------------------------------
+   Phone only, and CSS owns the actual heights — this just names the state on
+   <html> and keeps the grip's arrow pointing where the next tap goes. The
+   demo pane reads the same variable, so both panes move together. */
+
+const RACK = ['half', 'up', 'down'];
+
+function setRack () {
+  if (!RACK.includes(S.rack)) S.rack = 'half';
+  document.documentElement.dataset.rack = S.rack;
+  const g = $('.grip-arrow');
+  if (g) g.textContent = S.rack === 'up' ? '▼' : '▲';
+  const b = $('.grip');
+  if (b) b.setAttribute('aria-label', S.rack === 'up' ? 'Fold the controls away' : 'Open the controls further');
+}
+
+/* On a phone the aesthetic list is a horizontal strip, so the selected one
+   can sit off-screen. Scroll the strip itself — never scrollIntoView, which
+   would move the page and the panes with it. */
+function revealSelected () {
+  const list = $('#list'); const el = $('.who.on');
+  if (!list || !el || list.scrollWidth <= list.clientWidth + 4) return;
+  list.scrollTo({ left: el.offsetLeft - (list.clientWidth - el.offsetWidth) / 2, behavior: 'smooth' });
+}
+
+/* The demo pane hangs off the bottom of the header, whose height changes when
+   the buttons wrap — so measure it rather than guess. */
+function measureTop () {
+  const t = $('.top');
+  if (t) document.documentElement.style.setProperty('--top-h', t.offsetHeight + 'px');
+}
+
 /* ---- painting & exports ------------------------------------------------ */
 
 function refresh () {
@@ -222,6 +254,9 @@ function onClick (e) {
       S.dark = !S.dark; save(); refresh(); return;
     case 'plain':
       S.plain = !S.plain; save(); refresh(); return;
+    case 'rack':
+      S.rack = RACK[(RACK.indexOf(S.rack) + 1) % RACK.length];
+      save(); setRack(); return;
     case 'replay':
       replay($('#demo')); return;
     case 'revert':
@@ -278,6 +313,7 @@ function boot2 () {
   const a = current();
   $('#deletebtn').hidden = !!LIB[S.selected];
   renderList(); renderForm(); refresh();
+  revealSelected();
   replay($('#demo'));
   if (a && a.color.darkRoles == null) S.dark = false;
 }
@@ -298,6 +334,10 @@ async function boot () {
   }
   ORDER = index;
   if (!S.selected || !(S.edits[S.selected] || LIB[S.selected])) S.selected = ids()[0];
+  setRack();
+  measureTop();
+  if (globalThis.ResizeObserver) new ResizeObserver(measureTop).observe($('.top'));
+  else globalThis.addEventListener('resize', measureTop);
   document.addEventListener('input', onInput);
   document.addEventListener('click', onClick);
   document.addEventListener('change', (e) => {

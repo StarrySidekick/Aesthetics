@@ -372,3 +372,115 @@ html[data-enter='grow'] .pv-room [data-stag].arrived { animation-name: enter-gro
   *, *::before, *::after { animation: none !important; transition: none !important }
   .pv-room [data-stag] { opacity: 1 !important }
 }
+
+/* ---- the phone: two panes, preview above and a rack below ----------------
+   The one-column stack put the list and the whole form *above* the demo, so
+   on a phone seeing what a control did meant scrolling past everything that
+   could change it. Which is the desktop claim broken: the thing being edited
+   has to stay in front of you.
+
+   So: the demo is pinned as the top pane and scrolls itself, and `.cols`
+   becomes the rack along the bottom — grip, aesthetic strip, form, exports —
+   scrolling itself, at one of three heights. The demo lives inside `.cols`
+   in the markup and escapes it with position:fixed, which is what keeps the
+   desktop grid untouched. That escape is the fragile part: nothing between
+   <html> and .demo may set transform, filter, perspective or will-change,
+   because any of those makes an ancestor the containing block and the demo
+   would be trapped inside the rack and clipped. */
+.grip { display: none }
+
+@media (max-width: 860px) {
+  /* The rack never grows past the point where the preview stops being worth
+     looking at — that floor is the whole reason this layout exists, so it is
+     a min() rather than a vh guess, and it holds on a short phone too. */
+  html {
+    --grip: 36px;
+    --floor: 200px;                 /* least preview height the rack may leave */
+    --room: calc(100vh - var(--top-h, 54px) - 16px);
+    --rack: min(50vh, calc(var(--room) - 260px));
+  }
+  html[data-rack='down'] { --rack: var(--grip) }
+  html[data-rack='half'] { --rack: min(50vh, calc(var(--room) - 260px)) }
+  html[data-rack='up']   { --rack: min(78vh, calc(var(--room) - var(--floor))) }
+
+  html, body { height: 100%; overflow: hidden }
+  body { display: flex; flex-direction: column }
+
+  /* One row, and it scrolls — a wrapped second row of buttons is 30px stolen
+     off the top of the preview, which is the only thing here that matters. */
+  .top { position: static; flex: none; padding: 7px 10px; gap: 8px }
+  .top > div:first-child { flex: 0 1 auto; min-width: 92px }   /* enough for a name, not "Hik…" */
+  .top h1 { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+  #subtitle { display: none }
+  .topbtns {
+    gap: 6px; flex-wrap: nowrap; overflow-x: auto;
+    overscroll-behavior-x: contain; scrollbar-width: none;
+  }
+  .topbtns::-webkit-scrollbar { display: none }
+  .topbtns button, .mini { padding: 4px 9px; font-size: 13px; flex: none; white-space: nowrap }
+
+  /* ---- the top pane ---- */
+  .demo {
+    position: fixed; z-index: 10;
+    top: var(--top-h, 54px); left: 8px; right: 8px;
+    bottom: calc(var(--rack) + 8px);
+    overflow-y: auto; overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: var(--v-shadow);
+    transition: bottom .28s cubic-bezier(.2,.8,.25,1);
+  }
+  /* the swatches and the entrance button ride along at the foot of the pane,
+     on one scrolling row for the same reason as the header */
+  .demobar { position: sticky; bottom: 0; z-index: 2 }
+  .pv-swatches { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none }
+  .pv-swatches::-webkit-scrollbar { display: none }
+
+  /* ---- the rack ---- */
+  .cols {
+    position: fixed; z-index: 20; left: 0; right: 0; bottom: 0;
+    height: var(--rack);
+    display: block; max-width: none; margin: 0;
+    padding: 0 0 env(safe-area-inset-bottom, 0px);
+    overflow-y: auto; overscroll-behavior: contain;
+    background: var(--c-bg);
+    border-top: 1px solid var(--c-line);
+    box-shadow: 0 -6px 20px rgba(0,0,0,.16);
+    transition: height .28s cubic-bezier(.2,.8,.25,1);
+  }
+  /* promote the demo and the exports out of their column wrapper so the rack
+     lays them out directly */
+  .col-side { display: contents }
+
+  .grip {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    position: sticky; top: 0; z-index: 4;
+    width: 100%; height: var(--grip);
+    background: var(--c-bg); border: 0; border-bottom: 1px solid var(--c-line);
+    color: var(--c-inksoft); font: inherit; font-size: 12px;
+    touch-action: manipulation;
+  }
+  .grip::before {
+    content: ''; width: 32px; height: 4px; border-radius: 2px;
+    background: var(--c-line);
+  }
+  .grip-arrow { font-size: 9px }
+
+  /* the aesthetic strip: a horizontal scroller that stays put under the grip,
+     so switching aesthetic never costs a scroll */
+  .col-list {
+    position: sticky; top: var(--grip); z-index: 3;
+    flex-direction: row; flex-wrap: nowrap; gap: 6px;
+    overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+    padding: 8px 12px; background: var(--c-bg);
+    border-bottom: 1px solid var(--c-line);
+    scrollbar-width: none;
+  }
+  .col-list::-webkit-scrollbar { display: none }
+  .who { flex: none; white-space: nowrap }
+  .who-tags { display: none }
+
+  .col-form { padding: 12px 12px 0 }
+  .export { padding: 12px 12px 20px }
+  #out { height: 30vh }
+  .pv-grid { grid-template-columns: 1fr }
+}
