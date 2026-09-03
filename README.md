@@ -56,7 +56,18 @@ three heights — tap **Controls** to cycle half, full, hidden — and scrolls b
 itself too. The aesthetic strip sits under the grip so switching never costs
 a scroll. The rack is not allowed to leave the preview shorter than 200px,
 because a control you can't see the effect of is the thing this layout exists
-to prevent. The desktop three-column room is unchanged above 860px.
+to prevent. The desktop three-column room is unchanged above 860px, because
+the controls wrapper is `display: contents` there and the list and form drop
+straight back into the grid.
+
+Two rules that block is not allowed to break, both learned the hard way.
+**Nothing is `position: fixed`** — the first attempt pinned the demo with it
+while the demo still sat inside the scrolling rack, which the spec says
+escapes the rack's overflow and Chromium agrees, but iOS Safari clips it and
+the top pane came up blank on a real phone. And **`vh` is declared before
+`dvh`**, behind `@supports`: a custom property holding a unit the browser
+doesn't know is invalid at computed-value time, so a bare `dvh` would leave
+the rack with no height at all on an older iOS.
 
 Edits live in localStorage as a working copy per aesthetic; the committed file
 shows through until you touch something, and **Revert to file** throws the

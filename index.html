@@ -26,13 +26,14 @@
 </header>
 
 <div class="cols">
-  <!-- The rack's grip. Only exists on a phone, where .cols becomes a bottom
-       sheet; display:none everywhere else. -->
-  <button class="grip" data-act="rack" aria-label="Resize the controls"><span class="grip-label">Controls</span><span class="grip-arrow">▲</span></button>
-
-  <nav id="list" class="col-list" aria-label="Aesthetics"></nav>
-
-  <main id="form" class="col-form"></main>
+  <!-- The controls. On a phone this is the bottom rack, with the grip that
+       folds it; on a desktop it is display:contents, so the list and the form
+       drop straight into the grid as columns one and two. -->
+  <div class="rack">
+    <button class="grip" data-act="rack" aria-label="Resize the controls"><span class="grip-label">Controls</span><span class="grip-arrow">▲</span></button>
+    <nav id="list" class="col-list" aria-label="Aesthetics"></nav>
+    <main id="form" class="col-form"></main>
+  </div>
 
   <aside class="col-side">
     <!-- The demo: a small site that never changes shape — the aesthetic is

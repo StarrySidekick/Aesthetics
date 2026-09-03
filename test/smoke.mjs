@@ -165,13 +165,27 @@ const lib = Object.fromEntries(index.map((id) => [id,
   await phone.goto(URL);
   await phone.waitForTimeout(800);
   const rackStep = async () => {
-    const s = await phone.evaluate(() => ({
-      state: document.documentElement.dataset.rack,
-      demoH: Math.round(document.querySelector('.demo').getBoundingClientRect().height),
-      demoPinned: getComputedStyle(document.querySelector('.demo')).position === 'fixed',
-      rackScrolls: getComputedStyle(document.querySelector('.cols')).overflowY === 'auto',
-      pageStuck: document.body.scrollHeight <= globalThis.innerHeight + 4,
-    }));
+    const s = await phone.evaluate(() => {
+      const demo = document.querySelector('.pv-room');   // the painted room itself
+      const stage = document.querySelector('.col-side');
+      const rack = document.querySelector('.rack');
+      const d = demo.getBoundingClientRect();
+      const st = stage.getBoundingClientRect();
+      const rk = rack.getBoundingClientRect();
+      return {
+        state: document.documentElement.dataset.rack,
+        demoH: Math.round(st.height),
+        // what actually broke on the phone: the room rendered nowhere
+        demoOnScreen: d.width > 100 && d.height > 80 && d.top < globalThis.innerHeight && d.bottom > 0,
+        stageAboveRack: Math.round(st.bottom) <= Math.round(rk.top) + 1,
+        bothScroll: getComputedStyle(stage).overflowY === 'auto' && getComputedStyle(rack).overflowY === 'auto',
+        // no fixed positioning: iOS Safari clips a fixed box inside a
+        // scrolling ancestor, which is how the top pane went blank
+        noFixed: [stage, rack, demo, document.querySelector('.demo')]
+          .every((el) => getComputedStyle(el).position !== 'fixed'),
+        pageStuck: document.body.scrollHeight <= globalThis.innerHeight + 4,
+      };
+    });
     await phone.click('.grip');
     await phone.waitForTimeout(420);
     return s;
@@ -179,7 +193,8 @@ const lib = Object.fromEntries(index.map((id) => [id,
   const steps = [await rackStep(), await rackStep(), await rackStep()];
   // 200px is the floor the rack is not allowed to cross; nothing may scroll
   // the page itself, or both panes would slide away together
-  const phoneTwoPane = steps.every((s) => s.demoH >= 200 && s.demoPinned && s.rackScrolls && s.pageStuck);
+  const phoneTwoPane = steps.every((s) => s.demoH >= 200 && s.demoOnScreen
+    && s.stageAboveRack && s.bothScroll && s.noFixed && s.pageStuck);
   const phoneCycles = steps.map((s) => s.state).join(',') === 'half,up,down';
   await phone.close();
 
