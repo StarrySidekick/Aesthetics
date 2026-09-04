@@ -40,24 +40,34 @@
     ]
   },
   "color": {
-    "roles": {
-      "bg": "#E4D9BE",
-      "surface": "#F5EEDC",
-      "ink": "#33261F",
-      "inkSoft": "#6E5A46",
-      "line": "#7A5F42",
-      "accent": "#C1272D",
-      "glow": "#E8A33D"
-    },
-    "darkRoles": {
-      "bg": "#241A16",
-      "surface": "#33251E",
-      "ink": "#F2E4CC",
-      "inkSoft": "#BFA382",
-      "line": "#6E523A",
-      "accent": "#E04B44",
-      "glow": "#F4C070"
-    },
+    "variants": [
+      {
+        "name": "Workshop",
+        "mode": "light",
+        "roles": {
+          "bg": "#E4D9BE",
+          "surface": "#F5EEDC",
+          "ink": "#33261F",
+          "inkSoft": "#6E5A46",
+          "line": "#7A5F42",
+          "accent": "#C1272D",
+          "glow": "#E8A33D"
+        }
+      },
+      {
+        "name": "Candlelight",
+        "mode": "dark",
+        "roles": {
+          "bg": "#241A16",
+          "surface": "#33251E",
+          "ink": "#F2E4CC",
+          "inkSoft": "#BFA382",
+          "line": "#6E523A",
+          "accent": "#E04B44",
+          "glow": "#F4C070"
+        }
+      }
+    ],
     "palette": [
       {
         "name": "Lacquer",
@@ -154,8 +164,8 @@
     "speed": 260,
     "easing": "cubic-bezier(.34,1.56,.64,1)",
     "entrance": "drop",
-    "stagger": 80,
     "hover": "lift",
+    "stagger": 80,
     "ambient": "drift",
     "character": "Nothing starts itself. Things are lowered in from above, overshoot a little, and bob until they settle — a marionette finding its feet. Between actions everything sways very slightly, because everything is hanging."
   },

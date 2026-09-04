@@ -49,14 +49,14 @@ const lib = Object.fromEntries(index.map((id) => [id,
   const bodiesDiffer = new Set(bodies).size >= index.length - 1;  // two creams may collide
   const attrsCarry = attrs.every((x) => x.split('|').every(Boolean));
   const carcaCut = attrs[index.indexOf('carca')].includes('cut');
-  const gothicTwinkles = attrs[index.indexOf('starful-gothic')].includes('twinkle');
+  const starprintTwinkles = attrs[index.indexOf('starprint')].includes('twinkle');
 
   // — the entrance actually ran: staged elements carry .arrived —
   const arrived = await page.evaluate(() =>
     document.querySelectorAll('#demo [data-stag].arrived').length > 5);
 
   // — the ornament divider prints the aesthetic's glyph —
-  await page.click('[data-id="victoria"]');
+  await page.click('[data-id="alyssian"]');
   await page.waitForTimeout(650);
   const ornament = await page.evaluate(() =>
     getComputedStyle(document.querySelector('.pv-orn'), '::before').content.includes('❦'));
@@ -68,30 +68,47 @@ const lib = Object.fromEntries(index.map((id) => [id,
   const chromeAfter = await page.evaluate(() => getComputedStyle(document.querySelector('.top')).backgroundColor);
   const demoStillPainted = await page.evaluate(() =>
     getComputedStyle(document.querySelector('.pv-primary')).backgroundColor !== 'rgb(74, 80, 88)');
-  await shot('victoria-plain');
+  await shot('alyssian-plain');
   await page.click('#plainbtn');
 
-  // — the after-dark toggle shows only where a dark set exists, and repaints —
-  const darkShown = await page.locator('#darkbtn:visible').count() === 1;
+  // — the variant picker appears only where there is more than one colourway,
+  //   and switching one repaints the room —
+  const darkShown = await page.locator('#variants .vbtn:visible').count() === 2;
   const bgLight = await page.evaluate(() => getComputedStyle(document.querySelector('.pv-hero')).backgroundColor);
-  await page.click('#darkbtn');
+  await page.click('#variants .vbtn:nth-child(2)');
+  await page.waitForTimeout(400);
   const bgDark = await page.evaluate(() => getComputedStyle(document.querySelector('.pv-hero')).backgroundColor);
-  await shot('victoria-dark');
-  await page.click('#darkbtn');
+  const titleNamesVariant = (await page.locator('#title').innerText()).trim() === 'Alyssian Twilight';
+  await shot('alyssian-twilight');
+  await page.click('#variants .vbtn:nth-child(1)');
+  await page.waitForTimeout(300);
   await page.click('[data-id="aeros"]');
   await page.waitForTimeout(400);
-  const darkHiddenOnAeros = await page.locator('#darkbtn:visible').count() === 0;
+  const darkHiddenOnAeros = await page.locator('#variants .vbtn:visible').count() === 0;
+  // Starprint is one drawing on four papers — the case a light/dark pair
+  // could not express at all
+  await page.click('[data-id="starprint"]');
+  await page.waitForTimeout(500);
+  const fourPapers = await page.locator('#variants .vbtn').count() === 4;
+  const paperBgs = [];
+  for (let i = 1; i <= 4; i++) {
+    await page.click(`#variants .vbtn:nth-child(${i})`);
+    await page.waitForTimeout(350);
+    paperBgs.push(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+  }
+  const papersDiffer = new Set(paperBgs).size === 4;
+  await shot('starprint-autumn');
 
   // — an edit forks a working copy, repaints live, and revert drops it —
-  await page.click('[data-id="victoria"]');
+  await page.click('[data-id="alyssian"]');
   await page.waitForTimeout(400);
   await page.evaluate(() => document.querySelectorAll('details.sec').forEach((d) => { d.open = true; }));
-  const accentBox = page.locator('input.hex[data-path="color.roles.accent"]');
+  const accentBox = page.locator('input.hex[data-path="color.variants.0.roles.accent"]');
   await accentBox.fill('#FF0000');
   await page.waitForTimeout(200);
   const editRepaints = await page.evaluate(() =>
     getComputedStyle(document.querySelector('.pv-primary')).backgroundColor) === 'rgb(255, 0, 0)';
-  const editFlagged = (await page.locator('[data-id="victoria"] .who-tags').innerText()).includes('edited');
+  const editFlagged = (await page.locator('[data-id="alyssian"] .who-tags').innerText()).includes('edited');
   page.once('dialog', (d) => d.accept());
   await page.click('#revert');
   await page.waitForTimeout(400);
@@ -100,10 +117,11 @@ const lib = Object.fromEntries(index.map((id) => [id,
   // — the motion controls exist and the exports carry the new tokens —
   const motionControls = await page.locator('select[data-path="motion.entrance"], select[data-path="motion.hover"], select[data-path="motion.ambient"]').count() === 3;
   const guide = await page.locator('#out').inputValue();
-  const guideOk = guide.startsWith('# Victoria') && guide.includes('## Motion') && guide.includes('Entrance: fade');
+  const guideOk = guide.startsWith('# Alyssian') && guide.includes('## Motion') && guide.includes('Entrance: fade');
   await page.click('[data-tab="css"]');
   const css = await page.locator('#out').inputValue();
-  const cssOk = css.includes('--victoria-entrance: fade;') && css.includes('--victoria-ornament: "❦";');
+  const cssOk = css.includes('--alyssian-entrance: fade;') && css.includes('--alyssian-ornament: "❦";')
+    && css.includes('[data-alyssian-variant="twilight"]');
   await page.click('[data-tab="json"]');
   const json = JSON.parse(await page.locator('#out').inputValue());
   const jsonOk = json.format === 'aesthetic/1' && json.decor.ornament === '❦' && json.motion.hover === 'lift';
@@ -128,12 +146,12 @@ const lib = Object.fromEntries(index.map((id) => [id,
   //   and they used to come back at opacity 0 and stay there —
   const chipOpacity = async () => page.evaluate(() =>
     getComputedStyle(document.querySelector('.pv-chip')).opacity);
-  await page.click('[data-id="victoria"]');
+  await page.click('[data-id="alyssian"]');
   await page.waitForTimeout(700);
-  await page.click('#darkbtn');
+  await page.click('#variants .vbtn:nth-child(2)');
   await page.waitForTimeout(500);
   const chipsSurviveDark = Number(await chipOpacity()) > 0.9;
-  await page.click('#darkbtn');
+  await page.click('#variants .vbtn:nth-child(1)');
   await page.waitForTimeout(400);
 
   // — every backdrop kind paints something, and the two that are patterns
@@ -199,9 +217,10 @@ const lib = Object.fromEntries(index.map((id) => [id,
   await phone.close();
 
   const summary = { listed: listed === index.length, accentsDiffer, bodiesDiffer,
-    attrsCarry, carcaCut, gothicTwinkles, arrived, ornament,
+    attrsCarry, carcaCut, starprintTwinkles, arrived, ornament,
     plainSwitches: chromeBefore !== chromeAfter, demoStillPainted,
     darkShown, darkRepaints: bgLight !== bgDark, darkHiddenOnAeros,
+    titleNamesVariant, fourPapers, papersDiffer,
     editRepaints, editFlagged, reverted, motionControls, guideOk, cssOk, jsonOk, tokensOk, tokensAlias, chipsSurviveDark, newBackdrops, checkerIsRare, phoneTwoPane, phoneCycles,
     errors: [...errs, ...phoneErrs] };
   console.log(JSON.stringify(summary, null, 2));

@@ -1,6 +1,6 @@
 # Aesthetics
 
-Timothy's aesthetics — Victoria, Starful Gothic, Aeros, Golf 97, Girando,
+Timothy's aesthetics — Alyssian, Starprint, Aeros, Golf 97, Girando,
 Stelaine, Carca, Fantaccio, Hikari, and whatever comes next. Each one is a
 whole style guide: a story (most of them are places in the mind), a design
 philosophy, a voice, and every parameter — colour, type, shape, space, depth,
@@ -29,8 +29,8 @@ guide export isn't decoration — it is the part that says what the numbers
 are *for*.
 
 Three of the nine are seeded from real, committed data — Bureau's style
-system: Victoria from Victorian, Starful Gothic from Starry Sidekick, Aeros
-from Aero. The rest are **drafts**, in two kinds. Golf 97, Girando, Stelaine
+system: Alyssian from Victorian, Starprint from Starry Sidekick, Aeros from
+Aero. The rest are **drafts**, in two kinds. Golf 97, Girando, Stelaine
 and Carca were seeded from their names alone: every value is a guess and
 their stories say so in the first line, so rewrite them — a guessed story is
 a placeholder, not canon. Fantaccio and Hikari were briefed rather than
@@ -76,8 +76,9 @@ Download, and commit it over the file in `library/` — or paste it at a session
 and say "commit this". **New** starts a blank one, **Fork** copies the current
 one, **Import** reads a `.aesthetic.json` back in.
 
-Two toggles worth knowing: **After dark** appears only for aesthetics that
-carry a second set of seven, and **Plain room** drops the *editor chrome* back
+Two controls worth knowing: the **variant picker** appears only for
+aesthetics with more than one colourway, and **Plain room** drops the
+*editor chrome* back
 to neutral grey when an aesthetic is too loud to work inside — the demo stays
 painted, because plain is for the tools, never the picture.
 
@@ -85,7 +86,9 @@ The four exports, per aesthetic:
 
 - **JSON** — the aesthetic itself (`girando.aesthetic.json`). Canonical.
 - **CSS** — the same values as custom properties, prefixed with the id
-  (`--girando-accent`), so two aesthetics can coexist on one page.
+  (`--girando-accent`), so two aesthetics can coexist on one page. Variants
+  past the first come out as `[data-<id>-variant="skysea"]` blocks, and the
+  first one that calls itself dark also answers `prefers-color-scheme`.
 - **Guide** — a markdown style guide: story, philosophy, voice, every token,
   and the CSS block, in one hand-overable document.
 - **Tokens** — a [Design Tokens Community Group](https://www.designtokens.org/tr/drafts/format/)
@@ -119,9 +122,18 @@ drift apart. The shape:
 - **philosophy** — `principles`, `do`, `dont`
 - **voice** — tone, and sample copy the aesthetic would actually say. The demo
   prints it: the first sample is the toast, the rest fill the cards.
-- **color** — seven roles (bg, surface, ink, soft ink, line, accent, glow), an
-  optional after-dark seven, and a named palette ("a style has to answer *what
-  is your umber*" — Bureau's rule, kept)
+- **color** — **variants**: one or more named colourways, each with a mode
+  (light/dark), the seven roles (bg, surface, ink, soft ink, line, accent,
+  glow) and optionally its own backdrop colours. Plus a named palette ("a
+  style has to answer *what is your umber*" — Bureau's rule, kept).
+
+  Variants replaced a roles/darkRoles pair, because a pair could only say
+  "this style has a night". Alyssian does have exactly that — **Picnic** and
+  **Twilight**, one desk at two times of day — but Starprint is one drawing
+  printed on four papers (**Gothic**, **Labyrinth**, **Skysea**, **Autumn**),
+  and three of those are not anybody's dark mode. The first variant is the
+  default and the one a token file exports. `upgrade()` migrates old files,
+  so nothing had to be rewritten by hand.
 - **type** — display/body/mono stacks, weight, posture, tracking, case, base
   size, scale ratio
 - **shape & space** — round or **cut** corners, three radii, border width and
@@ -135,7 +147,7 @@ drift apart. The shape:
   and **grain**. Reach for the one the aesthetic actually means — checker was
   the only tiling primitive for a while and five of nine ended up wearing it,
   with their own notes confessing they wanted stripes or stone or diamonds
-  instead. Victoria is the one that genuinely is a checkerboard.
+  instead. Alyssian is the one that genuinely is a checkerboard.
 - **decor** — an ornament glyph, divider style, and how links underline
 - **motion** — speed, easing, **entrance** (fade / rise / drop / turn / grow),
   **stagger**, **on touch** (lift / glow / tilt / press), **ambient** (drift /
@@ -143,7 +155,7 @@ drift apart. The shape:
 
 Two rules the format inherited the hard way. A shadowless aesthetic stores a
 *zero* shadow, never `none` — shadows get composed into lists where `none` is
-illegal, which is why Starful Gothic reads the way it does. And a **cut**
+illegal, which is why Starprint reads the way it does. And a **cut**
 corner is a clip, so it clips the shadow too: carve depth with borders there.
 
 Change the shape by editing `blank()` and, if a control should exist for it,
@@ -168,7 +180,7 @@ repaints, that the discrete choices land as attributes, that entrances run,
 that plain room switches the chrome without touching the demo, and that an
 edit, a revert and the three exports all work. **Look at the screenshots** —
 every aesthetic wearing one page is the visual claim this makes, and a
-passing assertion doesn't mean Victoria looks like Victoria.
+passing assertion doesn't mean Alyssian looks like Alyssian.
 
 ## The files
 

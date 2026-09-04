@@ -26,9 +26,26 @@ export const ROLES = [
 
 export const TEXTURES = ['none', 'checker', 'lozenge', 'grid', 'stripe',
   'courses', 'stars', 'sheen', 'grain'];
+export const MODES = ['light', 'dark'];
 export const ENTRANCES = ['none', 'fade', 'rise', 'drop', 'turn', 'grow'];
 export const HOVERS = ['none', 'lift', 'glow', 'tilt', 'press'];
 export const AMBIENTS = ['none', 'drift', 'twinkle', 'shimmer'];
+
+/* Is this colour dark enough that the room is a night room? Used to guess a
+   migrated variant's mode, and nowhere else — an aesthetic states its mode. */
+export function isDark (hex) {
+  if (!/^#[0-9a-f]{6}$/i.test(String(hex || ''))) return false;
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  return (0.2126 * r + 0.7152 * g + 0.0722 * b) < 0.4;
+}
+
+/* The variant list, and one variant's seven roles. Everything that paints or
+   exports goes through these rather than reaching for color.roles, which no
+   longer exists. Out-of-range indices fall back to the first variant, so a
+   saved index outliving the variant it pointed at is not a crash. */
+export const variantsOf = (a) => a.color.variants;
+export const rolesOf = (a, i = 0) => (a.color.variants[i] || a.color.variants[0]).roles;
+export const variantAt = (a, i = 0) => a.color.variants[i] || a.color.variants[0];
 
 /* A blank aesthetic — every path the format has, with quiet defaults. Doubles
    as the upgrade net: anything an older file lacks is filled from here. */
@@ -47,11 +64,18 @@ export function blank (id = 'untitled') {
     dont: [],
     voice: { tone: '', samples: [] },
     color: {
-      roles: {
-        bg: '#F4F1EA', surface: '#FCFAF5', ink: '#26221C', inkSoft: '#5C564C',
-        line: '#8A8478', accent: '#5A6382', glow: '#9FB2D8',
-      },
-      darkRoles: null,
+      /* A colourway. Most aesthetics have one; some have a day and a night
+         (Alyssian); some are one drawing printed on several papers
+         (Starprint). Light/dark is the commonest shape of this, not the
+         only one, which is why they are a list and not a pair. */
+      variants: [{
+        name: 'Day',
+        mode: 'light',
+        roles: {
+          bg: '#F4F1EA', surface: '#FCFAF5', ink: '#26221C', inkSoft: '#5C564C',
+          line: '#8A8478', accent: '#5A6382', glow: '#9FB2D8',
+        },
+      }],
       palette: [],
     },
     type: {
@@ -94,12 +118,36 @@ export function upgrade (a) {
       }
     }
   }
+  /* aesthetic/1 carried one set of roles plus an optional after-dark set.
+     Variants generalise that, so old files and old working copies migrate
+     here once and never notice. The decision is made from the *input*, not
+     the merged result — the blank always supplies a variants array, so
+     testing the merged object would never see an old file. */
+  const src = a.color || {};
+  const c = out.color;
+  if (!Array.isArray(src.variants) || !src.variants.length) {
+    const old = src.roles || c.variants[0].roles;
+    const night = isDark(old.bg);
+    c.variants = [{ name: night ? 'Night' : 'Day', mode: night ? 'dark' : 'light', roles: { ...old } }];
+    if (src.darkRoles) c.variants.push({ name: 'After dark', mode: 'dark', roles: { ...src.darkRoles } });
+  }
+  const fallback = blank().color.variants[0].roles;
+  c.variants = c.variants.map((v, i) => ({
+    name: v.name || `Variant ${i + 1}`,
+    mode: v.mode === 'dark' ? 'dark' : 'light',
+    roles: { ...fallback, ...(v.roles || {}) },
+    /* optional: the backdrop redrawn for this colourway */
+    ...(v.texture ? { texture: { a: v.texture.a, b: v.texture.b } } : {}),
+  }));
+  delete c.roles;
+  delete c.darkRoles;
   out.format = FORMAT;
   return out;
 }
 
 /* The form, section by section. Field kinds the editor knows how to draw:
      text · textarea · number · range · select · color · lines · swatches
+     variants
    `path` is dot-notation into the aesthetic. `lines` edits an array of
    strings, one per line. `swatches` edits color.palette. */
 export const SECTIONS = [
@@ -124,8 +172,7 @@ export const SECTIONS = [
     { path: 'voice.samples', label: 'Sample copy', kind: 'lines', hint: 'phrases the aesthetic would actually say' },
   ]},
   { id: 'color', title: 'Colour', blurb: 'Seven roles carry the chrome; the palette is everything painted in it.', fields: [
-    ...ROLES.map(([k, label, hint]) => ({ path: `color.roles.${k}`, label, kind: 'color', hint })),
-    { path: 'color.darkRoles', label: 'After dark', kind: 'darkroles', hint: 'a second set of the seven, for styles that change when the lights go out' },
+    { path: 'color.variants', label: 'Variants', kind: 'variants', hint: 'named colourways — a day and a night, or one drawing on several papers. The first is the default.' },
     { path: 'color.palette', label: 'Palette', kind: 'swatches', hint: 'named colours things get painted in — a style has to answer “what is your umber”' },
   ]},
   { id: 'type', title: 'Type', blurb: 'The faces and the scale.', fields: [

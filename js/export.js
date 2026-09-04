@@ -6,16 +6,19 @@
    tokens in one document a person (or a Claude) can read top to bottom and
    then build in the style without asking anything else. */
 
-import { ROLES } from './schema.js';
+import { ROLES, rolesOf, variantsOf } from './schema.js';
 
 export const asJSON = (a) => JSON.stringify(a, null, 2) + '\n';
 
 /* Token names are prefixed with the aesthetic's id so two of them can coexist
    on one page — swapping aesthetics is swapping one attribute, not a war over
    --accent. */
+const vslug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 export function asCSS (a) {
   const p = '--' + a.id.replace(/[^a-z0-9-]/g, '');
-  const r = a.color.roles;
+  const vs = variantsOf(a);
+  const r = vs[0].roles;
   const t = a.type;
   const line = (k, v) => `  ${p}-${k}: ${v};`;
   const roles = (set) => ROLES.map(([k]) => line(k.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase()), set[k]));
@@ -60,9 +63,17 @@ export function asCSS (a) {
     line('ambient', a.motion.ambient),
     '}',
   ];
-  if (a.color.darkRoles) {
-    out.push('', '@media (prefers-color-scheme: dark) {', '  :root {',
-      ...roles(a.color.darkRoles).map((l) => '  ' + l), '  }', '}');
+  /* Every variant past the first is a data-variant block, so a page swaps
+     colourway by swapping one attribute. The first variant that calls itself
+     dark also answers prefers-color-scheme, which is the only thing a browser
+     can ask on its own. */
+  for (const v of vs.slice(1)) {
+    out.push('', `[data-${a.id}-variant="${vslug(v.name)}"] {`, ...roles(v.roles), '}');
+  }
+  const night = vs.slice(1).find((v) => v.mode === 'dark');
+  if (night) {
+    out.push('', `/* ${night.name} */`, '@media (prefers-color-scheme: dark) {', '  :root {',
+      ...roles(night.roles).map((l) => '  ' + l), '  }', '}');
   }
   return out.join('\n') + '\n';
 }
@@ -70,7 +81,8 @@ export function asCSS (a) {
 /* The guide. Written to be handed over whole: “build this in Girando” should
    need nothing but this document. */
 export function asGuide (a) {
-  const r = a.color.roles;
+  const vs = variantsOf(a);
+  const r = vs[0].roles;
   const list = (xs) => xs.filter(Boolean).map((x) => `- ${x}`).join('\n');
   const roleRows = (set) => ROLES
     .map(([k, label, hint]) => `| ${label} | \`${set[k]}\` | ${hint} |`).join('\n');
@@ -88,8 +100,11 @@ export function asGuide (a) {
     if (a.voice.tone) s.push(`\n${a.voice.tone}`);
     if (a.voice.samples.length) s.push(`\nIt would say:\n\n${list(a.voice.samples.map((x) => `“${x}”`))}`);
   }
-  s.push(`\n## Colour\n\n| Role | Hex | Used for |\n| --- | --- | --- |\n${roleRows(r)}`);
-  if (a.color.darkRoles) s.push(`\nAfter dark:\n\n| Role | Hex | Used for |\n| --- | --- | --- |\n${roleRows(a.color.darkRoles)}`);
+  s.push('\n## Colour');
+  if (vs.length > 1) s.push(`\n${a.name} comes in ${vs.length}: ${vs.map((v) => `**${v.name}** (${v.mode})`).join(', ')}.`);
+  for (const v of vs) {
+    s.push(`\n### ${vs.length > 1 ? `${a.name} ${v.name}` : 'Roles'}${vs.length > 1 ? ` — ${v.mode}` : ''}\n\n| Role | Hex | Used for |\n| --- | --- | --- |\n${roleRows(v.roles)}`);
+  }
   if (a.color.palette.length) {
     s.push(`\nPalette — what things get painted in:\n\n| Name | Hex |\n| --- | --- |\n` +
       a.color.palette.map((p) => `| ${p.name} | \`${p.hex}\` |`).join('\n'));
@@ -271,7 +286,8 @@ function shadowToken (str) {
 }
 
 export function asTokens (a) {
-  const r = a.color.roles;
+  const vs = variantsOf(a);
+  const r = vs[0].roles;
   const t = a.type;
 
   /* Palette first, so the roles can point at it. A role whose hex is exactly
@@ -379,11 +395,13 @@ export function asTokens (a) {
       },
     },
   };
-  if (a.color.darkRoles) {
-    /* The spec has no modes. A second file is the honest answer, so the
-       after-dark seven ride along under the extension rather than pretending
-       to be a theme the format can express. */
-    doc.$extensions['com.timothyvlangas.aesthetics'].darkRoles = { ...a.color.darkRoles };
+  if (vs.length > 1) {
+    /* The spec has no modes and no colourways. A file per variant is the
+       honest answer, so the rest ride along under the extension rather than
+       pretending to be a theme the format can express. `color.role` above is
+       the first variant, which is the one a tool will actually read. */
+    doc.$extensions['com.timothyvlangas.aesthetics'].variants =
+      vs.map((v) => ({ name: v.name, mode: v.mode, roles: { ...v.roles } }));
   }
   return JSON.stringify(doc, null, 2) + '\n';
 }

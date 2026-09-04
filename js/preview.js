@@ -10,7 +10,7 @@
    plain-room toggle (data-plain on <html>) when an aesthetic gets too loud
    to work inside — the demo stays painted either way. */
 
-import { ROLES } from './schema.js';
+import { ROLES, rolesOf, variantAt } from './schema.js';
 
 const px = (n) => n + 'px';
 
@@ -33,8 +33,11 @@ function backdrop (t, bg) {
     return `repeating-conic-gradient(${a} 0% 25%, ${b} 0% 50%) 0 0 / 64px 64px`;
   }
   if (kind === 'stars') {
+    /* The stars are drawn in the backdrop's own colour A. They used to be a
+       hardcoded near-white, which made the two texture colours dead controls
+       here and meant a print on pale paper had invisible stars. */
     const star = (x, y, r, o) =>
-      `radial-gradient(circle at ${x}px ${y}px, rgba(244,246,248,${o}) ${r}px, transparent ${r + 0.6}px)`;
+      `radial-gradient(circle at ${x}px ${y}px, color-mix(in srgb, ${a} ${Math.round(o * 100)}%, transparent) ${r}px, transparent ${r + 0.6}px)`;
     return [star(18, 32, 1.1, .9), star(70, 12, .8, .7), star(120, 58, 1.3, .8),
       star(160, 24, .7, .6), star(52, 84, .9, .75), star(140, 100, .8, .5),
       star(96, 40, .6, .5)].join(', ') + ` 0 0 / 180px 120px, ${bg}`;
@@ -82,11 +85,12 @@ function backdrop (t, bg) {
 }
 
 /* Paint one aesthetic onto one element — in practice document.documentElement.
-   `dark` asks for the after-dark seven when the aesthetic has them; without
-   them it is a no-op, which is Bureau's rule too — light or dark is a fact
-   about the style. */
-export function apply (el, a, dark) {
-  const roles = (dark && a.color.darkRoles) ? a.color.darkRoles : a.color.roles;
+   `vi` picks the colourway. Which one is showing is a fact about the style
+   rather than about the browser — an aesthetic that has a night has said so,
+   and one printed on four papers has said that too. */
+export function apply (el, a, vi = 0) {
+  const variant = variantAt(a, vi);
+  const roles = variant.roles;
   const v = (k, val) => el.style.setProperty('--v-' + k, val);
   const d = (k, val) => { el.dataset[k] = val; };
   for (const [k] of ROLES) v(k.toLowerCase(), roles[k]);
@@ -126,11 +130,19 @@ export function apply (el, a, dark) {
   d('enter', a.motion.entrance || 'none');
   d('hover', a.motion.hover || 'none');
   d('ambient', a.motion.ambient || 'none');
-  const t = { ...a.texture };
-  /* the backdrop colours are daylight colours; after dark the same pattern is
-     drawn as a whisper over the dark page, or the room stays lit while the
-     desk goes dark — the screenshot that caught this looked exactly that wrong */
-  if (dark && a.color.darkRoles) {
+  /* A print on different paper is drawn in a different ink, so a variant may
+     carry its own backdrop colours; the pattern itself stays a fact about the
+     aesthetic. */
+  const t = { ...a.texture, ...(variant.texture || {}) };
+  /* the backdrop colours are daylight colours; in a night variant the same
+     pattern is drawn as a whisper over the dark page, or the room stays lit
+     while the desk goes dark — the screenshot that caught this looked
+     exactly that wrong */
+  /* Only walk the texture back when this variant is a night *and the default
+     one isn't* — the backdrop colours were authored against the default. An
+     aesthetic that is a night room already (Starprint) has its texture drawn
+     for that room, and dimming it again would wash the stars out. */
+  if (variant.mode === 'dark' && variantAt(a, 0).mode === 'light') {
     t.a = toward(t.a, roles.bg, 0.12);
     t.b = toward(t.b, roles.bg, 0.12);
   }
@@ -164,7 +176,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
    every refresh except picking an aesthetic: toggling after dark, toggling
    plain room, and typing a single character into any field. replay() clears
    the class and re-adds it, so the entrance still runs. */
-export function fill (root, a) {
+export function fill (root, a, vi = 0) {
   const q = (sel) => root.querySelector(sel);
   const all = (sel) => root.querySelectorAll(sel);
   for (const el of all('.pv-name')) el.textContent = a.name;
@@ -176,7 +188,7 @@ export function fill (root, a) {
   q('.pv-chips').innerHTML = (a.mood.length ? a.mood : ['unnamed'])
     .slice(0, 5).map((m) => `<span class="pv-chip arrived" data-stag>${esc(m)}</span>`).join('');
   q('.pv-swatches').innerHTML = [
-    ...ROLES.map(([k, label]) => ({ name: label, hex: (a.color.roles[k] || '') })),
+    ...ROLES.map(([k, label]) => ({ name: label, hex: (rolesOf(a, vi)[k] || '') })),
     ...a.color.palette,
   ].map((sw) => `<span class="pv-sw" title="${esc(sw.name)}: ${esc(sw.hex)}" style="background:${esc(sw.hex)}"></span>`).join('');
   q('.pv-story').textContent = a.story

@@ -8,7 +8,7 @@
    and committing it (or telling a session to). Revert throws the working copy
    away and the file shows through again. */
 
-import { SECTIONS, ROLES, blank, upgrade, get, set } from './schema.js';
+import { SECTIONS, ROLES, MODES, blank, upgrade, get, set, rolesOf, variantsOf } from './schema.js';
 import { apply, fill, replay } from './preview.js';
 import { asJSON, asCSS, asGuide, asTokens } from './export.js';
 
@@ -18,7 +18,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 let LIB = {};            // id → aesthetic, as committed
 let ORDER = [];          // library order, then anything born here
-let S = { edits: {}, order: [], selected: null, dark: false, plain: false, tab: 'guide', rack: 'half' };
+let S = { edits: {}, order: [], selected: null, variant: 0, plain: false, tab: 'guide', rack: 'half' };
 
 function load () {
   try { S = { ...S, ...(JSON.parse(localStorage.getItem(KEY)) || {}) }; }
@@ -43,7 +43,7 @@ function renderList () {
     const a = S.edits[id] || LIB[id];
     if (!a) return '';
     return `<button class="who${id === S.selected ? ' on' : ''}" data-id="${esc(id)}">
-      <span class="dot" style="background:${esc(a.color.roles.accent)}"></span>
+      <span class="dot" style="background:${esc(rolesOf(a, 0).accent)}"></span>
       <span class="who-name">${esc(a.name)}</span>
       <span class="who-tags">${a.status === 'draft' ? 'draft' : ''}${edited(id) ? ' ·edited' : ''}</span>
     </button>`;
@@ -86,7 +86,7 @@ function fieldHTML (f, a) {
       rows="${Math.max(3, (val || []).length + 1)}">${esc((val || []).join('\n'))}</textarea></div>`;
   }
   if (f.kind === 'swatches') return swatchesHTML(f, a, label);
-  if (f.kind === 'darkroles') return darkrolesHTML(f, a, label);
+  if (f.kind === 'variants') return variantsHTML(f, a, label);
   return '';
 }
 
@@ -102,17 +102,35 @@ function swatchesHTML (f, a, label) {
     <button class="mini wide" data-act="sw-add">Add a colour</button></div>`;
 }
 
-function darkrolesHTML (f, a, label) {
-  const d = a.color.darkRoles;
-  const rows = d ? ROLES.map(([k, name]) => `
-    <span class="swrow">
-      <input type="color" data-path="color.darkRoles.${k}" value="${esc(d[k])}">
-      <span class="who-name">${esc(name)}</span>
-      <input type="text" class="mono hex" data-path="color.darkRoles.${k}" value="${esc(d[k])}">
-    </span>`).join('') : '';
-  return `<div class="field" id="darkroles">${label}
-    <label class="checkrow"><input type="checkbox" data-act="dark-toggle"${d ? ' checked' : ''}>
-      has an after-dark set</label>${rows}</div>`;
+/* Every colourway, each with its seven. The first is the default and can't
+   be removed — an aesthetic with no colours is not an aesthetic. */
+function variantsHTML (f, a, label) {
+  const vs = variantsOf(a);
+  const block = (v, i) => `
+    <div class="variant">
+      <span class="vhead">
+        <input type="text" data-path="color.variants.${i}.name" value="${esc(v.name)}" placeholder="name">
+        <select data-path="color.variants.${i}.mode">
+          ${MODES.map((m) => `<option${m === v.mode ? ' selected' : ''}>${m}</option>`).join('')}
+        </select>
+        ${i ? `<button class="mini" data-act="v-del" data-i="${i}" title="remove this variant">×</button>` : '<span class="hint">default</span>'}
+      </span>
+      ${ROLES.map(([k, name]) => `
+        <span class="swrow">
+          <input type="color" data-path="color.variants.${i}.roles.${k}" value="${esc(v.roles[k])}">
+          <span class="who-name">${esc(name)}</span>
+          <input type="text" class="mono hex" data-path="color.variants.${i}.roles.${k}" value="${esc(v.roles[k])}">
+        </span>`).join('')}
+      ${['a', 'b'].map((k) => `
+        <span class="swrow">
+          <input type="color" data-path="color.variants.${i}.texture.${k}" value="${esc((v.texture || a.texture)[k])}">
+          <span class="who-name">Backdrop ${k.toUpperCase()}</span>
+          <input type="text" class="mono hex" data-path="color.variants.${i}.texture.${k}" value="${esc((v.texture || a.texture)[k])}">
+        </span>`).join('')}
+    </div>`;
+  return `<div class="field" id="variants-field">${label}
+    ${vs.map(block).join('')}
+    <button class="mini wide" data-act="v-add">Add a variant</button></div>`;
 }
 
 function renderForm () {
@@ -160,14 +178,18 @@ function measureTop () {
 
 function refresh () {
   const a = current();
-  apply(document.documentElement, a, S.dark);
+  const vs = variantsOf(a);
+  if (S.variant >= vs.length) S.variant = 0;
+  apply(document.documentElement, a, S.variant);
   document.documentElement.toggleAttribute('data-plain', !!S.plain);
-  fill($('#demo'), a);
-  $('#title').textContent = a.name;
+  fill($('#demo'), a, S.variant);
+  /* one variant is just the aesthetic; several and the name says which */
+  $('#title').textContent = vs.length > 1 ? `${a.name} ${vs[S.variant].name}` : a.name;
   $('#subtitle').textContent = a.tagline || '';
   $('#revert').hidden = !(edited(S.selected) && LIB[S.selected]);
-  $('#darkbtn').hidden = !a.color.darkRoles;
-  $('#darkbtn').classList.toggle('on', S.dark && !!a.color.darkRoles);
+  $('#variants').innerHTML = vs.length > 1
+    ? vs.map((v, i) => `<button class="vbtn${i === S.variant ? ' on' : ''}" data-act="variant" data-i="${i}">${esc(v.name)}</button>`).join('')
+    : '';
   $('#plainbtn').classList.toggle('on', !!S.plain);
   renderExport();
 }
@@ -236,7 +258,7 @@ function unitOf (path) {
 function onClick (e) {
   const t = e.target.closest('[data-act], [data-id], [data-tab]');
   if (!t) return;
-  if (t.dataset.id) { S.selected = t.dataset.id; S.dark = false; save(); boot2(); return; }
+  if (t.dataset.id) { S.selected = t.dataset.id; S.variant = 0; save(); boot2(); return; }
   if (t.dataset.tab) { S.tab = t.dataset.tab; save(); renderExport(); return; }
   const a = () => editable();
   switch (t.dataset.act) {
@@ -246,12 +268,18 @@ function onClick (e) {
     case 'sw-del':
       a().color.palette.splice(+t.dataset.i, 1);
       break;
-    case 'dark-toggle':
-      a().color.darkRoles = t.checked ? { ...a().color.roles } : null;
-      if (!t.checked) S.dark = false;
+    case 'variant':
+      S.variant = +t.dataset.i; save(); refresh(); return;
+    case 'v-add': {
+      const vs = variantsOf(a());
+      vs.push({ name: 'Untitled', mode: vs[0].mode, roles: { ...vs[0].roles } });
+      S.variant = vs.length - 1;
       break;
-    case 'dark':
-      S.dark = !S.dark; save(); refresh(); return;
+    }
+    case 'v-del':
+      variantsOf(a()).splice(+t.dataset.i, 1);
+      S.variant = 0;
+      break;
     case 'plain':
       S.plain = !S.plain; save(); refresh(); return;
     case 'rack':
@@ -264,7 +292,7 @@ function onClick (e) {
       delete S.edits[S.selected]; save(); boot2(); return;
     case 'new': {
       const id = 'untitled-' + Math.random().toString(36).slice(2, 7);
-      S.edits[id] = blank(id); S.order.push(id); S.selected = id; S.dark = false;
+      S.edits[id] = blank(id); S.order.push(id); S.selected = id; S.variant = 0;
       save(); boot2(); return;
     }
     case 'fork': {
@@ -310,12 +338,10 @@ function onImport (e) {
 /* ---- boot -------------------------------------------------------------- */
 
 function boot2 () {
-  const a = current();
   $('#deletebtn').hidden = !!LIB[S.selected];
   renderList(); renderForm(); refresh();
   revealSelected();
   replay($('#demo'));
-  if (a && a.color.darkRoles == null) S.dark = false;
 }
 
 async function boot () {

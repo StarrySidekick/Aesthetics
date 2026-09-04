@@ -37,16 +37,21 @@
     ]
   },
   "color": {
-    "roles": {
-      "bg": "#E8E0D0",
-      "surface": "#F2ECDE",
-      "ink": "#322A20",
-      "inkSoft": "#6A5E4C",
-      "line": "#8A7C64",
-      "accent": "#A64B2A",
-      "glow": "#D9A44B"
-    },
-    "darkRoles": null,
+    "variants": [
+      {
+        "name": "Day",
+        "mode": "light",
+        "roles": {
+          "bg": "#E8E0D0",
+          "surface": "#F2ECDE",
+          "ink": "#322A20",
+          "inkSoft": "#6A5E4C",
+          "line": "#8A7C64",
+          "accent": "#A64B2A",
+          "glow": "#D9A44B"
+        }
+      }
+    ],
     "palette": [
       {
         "name": "Limestone",
@@ -98,9 +103,9 @@
     "display": {
       "stack": "Optima, 'Trajan Pro', 'Gill Sans', Georgia, serif",
       "weight": "600",
+      "style": "normal",
       "tracking": ".08em",
-      "transform": "uppercase",
-      "style": "normal"
+      "transform": "uppercase"
     },
     "body": {
       "stack": "'Iowan Old Style', Palatino, Georgia, serif",
@@ -129,12 +134,22 @@
     "shadow": "0 2px 0 rgba(50,42,32,.22)",
     "shadowLg": "0 4px 0 rgba(50,42,32,.26)"
   },
+  "effects": {
+    "gloss": 0,
+    "glass": 0,
+    "grain": 0.25
+  },
+  "decor": {
+    "ornament": "⁂",
+    "dividers": "double",
+    "underline": "solid"
+  },
   "motion": {
     "speed": 140,
     "easing": "ease-out",
     "entrance": "drop",
-    "stagger": 70,
     "hover": "press",
+    "stagger": 70,
     "ambient": "none",
     "character": "Solid. Things land with weight and stay put; nothing floats."
   },
@@ -145,15 +160,5 @@
     "alpha": 1,
     "notes": "Coursed stone — a joint line every course, blocks flat and barely darker at the bed. A true running bond would stagger the head joints; that needs a tile cut both ways, so it isn't drawn. Hard drop shadows — offset, no blur — like noon light on a wall."
   },
-  "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story.",
-  "effects": {
-    "gloss": 0,
-    "glass": 0,
-    "grain": 0.25
-  },
-  "decor": {
-    "ornament": "⁂",
-    "dividers": "double",
-    "underline": "solid"
-  }
+  "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story."
 }

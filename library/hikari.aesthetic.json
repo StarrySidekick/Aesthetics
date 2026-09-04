@@ -40,24 +40,34 @@
     ]
   },
   "color": {
-    "roles": {
-      "bg": "#D8E6F7",
-      "surface": "#FBFDFF",
-      "ink": "#16324C",
-      "inkSoft": "#5A7894",
-      "line": "#9BB6CC",
-      "accent": "#0070EC",
-      "glow": "#00E8D8"
-    },
-    "darkRoles": {
-      "bg": "#060C22",
-      "surface": "#12224A",
-      "ink": "#E8F6FF",
-      "inkSoft": "#86A8C8",
-      "line": "#2A4A86",
-      "accent": "#3CBCFC",
-      "glow": "#00E8D8"
-    },
+    "variants": [
+      {
+        "name": "Jacked out",
+        "mode": "light",
+        "roles": {
+          "bg": "#D8E6F7",
+          "surface": "#FBFDFF",
+          "ink": "#16324C",
+          "inkSoft": "#5A7894",
+          "line": "#9BB6CC",
+          "accent": "#0070EC",
+          "glow": "#00E8D8"
+        }
+      },
+      {
+        "name": "Jacked in",
+        "mode": "dark",
+        "roles": {
+          "bg": "#060C22",
+          "surface": "#12224A",
+          "ink": "#E8F6FF",
+          "inkSoft": "#86A8C8",
+          "line": "#2A4A86",
+          "accent": "#3CBCFC",
+          "glow": "#00E8D8"
+        }
+      }
+    ],
     "palette": [
       {
         "name": "Net blue",
@@ -154,8 +164,8 @@
     "speed": 120,
     "easing": "cubic-bezier(.2,.9,.25,1)",
     "entrance": "grow",
-    "stagger": 30,
     "hover": "glow",
+    "stagger": 30,
     "ambient": "drift",
     "character": "Instant and electric. Windows pop open rather than fade in, one after another the way a chip menu fills; nothing lingers, nothing bounces, and between actions the whole screen holds still and hums."
   },

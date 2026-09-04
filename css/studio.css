@@ -69,7 +69,7 @@ code { font-family: var(--v-mono); font-size: 12px; background: color-mix(in srg
   border-radius: calc(var(--c-r) * .75); padding: 5px 11px; color: var(--c-ink);
 }
 .topbtns button:hover, .mini:hover { border-color: var(--c-inksoft) }
-#darkbtn.on, #plainbtn.on { background: var(--c-ink); color: var(--c-surface); border-color: var(--c-ink) }
+.vbtn.on, #plainbtn.on { background: var(--c-ink); color: var(--c-surface); border-color: var(--c-ink) }
 
 .cols {
   display: grid; grid-template-columns: 200px minmax(320px, 1fr) minmax(380px, 560px);
@@ -345,6 +345,14 @@ html[data-enter='grow'] .pv-room [data-stag].arrived { animation-name: enter-gro
 }
 .pv-swatches { display: flex; gap: 4px; flex-wrap: wrap; flex: 1 }
 .pv-sw { width: 20px; height: 20px; border-radius: 5px; border: 1px solid rgba(0,0,0,.15); flex: none }
+
+.variants { display: inline-flex; gap: 6px }
+.variant {
+  border: 1px solid var(--c-line); border-radius: calc(var(--c-r) * .75);
+  padding: 8px; margin-bottom: 8px; display: grid; gap: 4px;
+}
+.vhead { display: flex; gap: 6px; align-items: center }
+.vhead input[type=text] { flex: 1; min-width: 0 }
 
 /* ---- the exports ------------------------------------------------------- */
 .export { display: grid; gap: 8px }

@@ -37,16 +37,21 @@
     ]
   },
   "color": {
-    "roles": {
-      "bg": "#DCD8CA",
-      "surface": "#ECEAE0",
-      "ink": "#1E241C",
-      "inkSoft": "#55604E",
-      "line": "#8B9282",
-      "accent": "#2E7D3A",
-      "glow": "#9ADF6E"
-    },
-    "darkRoles": null,
+    "variants": [
+      {
+        "name": "Day",
+        "mode": "light",
+        "roles": {
+          "bg": "#DCD8CA",
+          "surface": "#ECEAE0",
+          "ink": "#1E241C",
+          "inkSoft": "#55604E",
+          "line": "#8B9282",
+          "accent": "#2E7D3A",
+          "glow": "#9ADF6E"
+        }
+      }
+    ],
     "palette": [
       {
         "name": "Fairway",
@@ -98,9 +103,9 @@
     "display": {
       "stack": "Verdana, Tahoma, 'DejaVu Sans', sans-serif",
       "weight": "700",
+      "style": "normal",
       "tracking": "0em",
-      "transform": "none",
-      "style": "normal"
+      "transform": "none"
     },
     "body": {
       "stack": "Verdana, Tahoma, 'DejaVu Sans', sans-serif",
@@ -129,12 +134,22 @@
     "shadow": "inset -1px -1px 0 rgba(0,0,0,.22), inset 1px 1px 0 rgba(255,255,255,.75)",
     "shadowLg": "inset -2px -2px 0 rgba(0,0,0,.25), inset 2px 2px 0 rgba(255,255,255,.85)"
   },
+  "effects": {
+    "gloss": 0.25,
+    "glass": 0,
+    "grain": 0
+  },
+  "decor": {
+    "ornament": "▪",
+    "dividers": "double",
+    "underline": "solid"
+  },
   "motion": {
     "speed": 80,
     "easing": "linear",
     "entrance": "none",
-    "stagger": 0,
     "hover": "press",
+    "stagger": 0,
     "ambient": "none",
     "character": "Instant. Screens cut, nothing tweens — the machine had no frames to spare."
   },
@@ -145,15 +160,5 @@
     "alpha": 1,
     "notes": "Mown fairway stripes, the bands a mower leaves when you look up the hole. The shadows are bevels: light from the top-left, always."
   },
-  "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story.",
-  "effects": {
-    "gloss": 0.25,
-    "glass": 0,
-    "grain": 0
-  },
-  "decor": {
-    "ornament": "▪",
-    "dividers": "double",
-    "underline": "solid"
-  }
+  "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story."
 }

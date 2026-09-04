@@ -22,7 +22,7 @@ room that stayed daylight while the desk went dark.
 
 ## Building something in an aesthetic
 
-When Timothy says "build this in Aeros" (or Victoria, Starful Gothic, Golf 97,
+When Timothy says "build this in Aeros" (or Alyssian, Starprint, Golf 97,
 Girando, Stelaine, Carca, Fantaccio, Hikari), read
 `library/<id>.aesthetic.json` and follow it.
 **The story, philosophy, do/don't and voice in the file are instructions, not
@@ -38,7 +38,13 @@ to a tool rather than a person.
   and committed. A change nobody committed does not exist tomorrow.
 - **A shadowless aesthetic stores a zero shadow, never `none`.** Shadows get
   composed into lists (`inset …, var(--shadow)`), and `none` is only legal as
-  the sole value of the property. Starful Gothic is the one this bit.
+  the sole value of the property. Starprint is the one this bit.
+
+- **Colour lives in `color.variants`, never `color.roles`.** An aesthetic has
+  one or more named colourways; light/dark is the commonest shape but not the
+  only one (Starprint is four papers). Read them with `rolesOf(a, i)` and
+  `variantAt(a, i)` from `js/schema.js`; `color.roles` no longer exists, and
+  `upgrade()` migrates any file that still has it.
 - **`js/schema.js` owns both the format and the form.** Add a field to
   `blank()` *and* to `SECTIONS`, or you get a value nobody can edit or a knob
   wired to nothing. `upgrade()` backfills older files and saved working

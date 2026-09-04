@@ -1,10 +1,10 @@
 {
   "format": "aesthetic/1",
-  "id": "victoria",
-  "name": "Victoria",
+  "id": "alyssian",
+  "name": "Alyssian",
   "status": "canon",
   "tagline": "An old desk: baize, brass, sage and claret",
-  "lineage": "Grew up as Bureau's Victorian — the desk the whole system was built on.",
+  "lineage": "Grew up as Bureau's Victorian, and was called Victoria here until it got its own name — the desk the whole system was built on.",
   "story": "An old writing desk by a window. Parchment that has been written on before, baize worn smooth where the elbows go, brass that acts because it is the only thing on the desk that moves. Everything here is finite: the desk has edges, the drawers have bottoms, and the room is lit by the day. Nothing is pure white and nothing is pure black, because nothing real is.",
   "mood": [
     "finite",
@@ -15,7 +15,7 @@
     "Nothing pure white, nothing pure black — every colour has been somewhere.",
     "Brass is the one metal, and it marks the thing to act on.",
     "Ornament is panelling, not decoration: it says what a surface is, never just prettifies it.",
-    "The desk follows the day — it has a lamplit after-dark self, and the slots deepen rather than change."
+    "The desk follows the day — Picnic is the room lit by the window, Twilight is the same room by lamp, and the slots deepen rather than change."
   ],
   "do": [
     "Set display type in an old-style serif and let it be large.",
@@ -36,24 +36,34 @@
     ]
   },
   "color": {
-    "roles": {
-      "bg": "#E9E1CC",
-      "surface": "#EFEADA",
-      "ink": "#2A241C",
-      "inkSoft": "#5A5142",
-      "line": "#4A4034",
-      "accent": "#A9793F",
-      "glow": "#D9B57C"
-    },
-    "darkRoles": {
-      "bg": "#241C14",
-      "surface": "#2C2419",
-      "ink": "#EDE3CE",
-      "inkSoft": "#B5A587",
-      "line": "#6B5942",
-      "accent": "#C89B54",
-      "glow": "#E4C68A"
-    },
+    "variants": [
+      {
+        "name": "Picnic",
+        "mode": "light",
+        "roles": {
+          "bg": "#E9E1CC",
+          "surface": "#EFEADA",
+          "ink": "#2A241C",
+          "inkSoft": "#5A5142",
+          "line": "#4A4034",
+          "accent": "#A9793F",
+          "glow": "#D9B57C"
+        }
+      },
+      {
+        "name": "Twilight",
+        "mode": "dark",
+        "roles": {
+          "bg": "#241C14",
+          "surface": "#2C2419",
+          "ink": "#EDE3CE",
+          "inkSoft": "#B5A587",
+          "line": "#6B5942",
+          "accent": "#C89B54",
+          "glow": "#E4C68A"
+        }
+      }
+    ],
     "palette": [
       {
         "name": "Walnut",
@@ -105,9 +115,9 @@
     "display": {
       "stack": "'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif",
       "weight": "600",
+      "style": "normal",
       "tracking": "0em",
-      "transform": "none",
-      "style": "normal"
+      "transform": "none"
     },
     "body": {
       "stack": "'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif",
@@ -136,12 +146,22 @@
     "shadow": "0 1px 3px rgba(42,36,28,.18)",
     "shadowLg": "0 10px 26px rgba(42,36,28,.24)"
   },
+  "effects": {
+    "gloss": 0,
+    "glass": 0,
+    "grain": 0.15
+  },
+  "decor": {
+    "ornament": "❦",
+    "dividers": "ornament",
+    "underline": "solid"
+  },
   "motion": {
     "speed": 180,
     "easing": "ease-out",
     "entrance": "fade",
-    "stagger": 60,
     "hover": "lift",
+    "stagger": 60,
     "ambient": "none",
     "character": "Deliberate. Nothing bounces; things settle like paper being set down."
   },
@@ -152,15 +172,5 @@
     "alpha": 1,
     "notes": "Cream and soft-green baize checkerboard, the desk's playing surface. Panelled borders and round brass pulls on anything drawer-like."
   },
-  "notes": "Seeded from Bureau's Victorian style (web/js/look.js + docs/STYLES.md). The sixteen-slot palette maps here as seven roles plus the eleven named colours.",
-  "effects": {
-    "gloss": 0,
-    "glass": 0,
-    "grain": 0.15
-  },
-  "decor": {
-    "ornament": "❦",
-    "dividers": "ornament",
-    "underline": "solid"
-  }
+  "notes": "Seeded from Bureau's Victorian style (web/js/look.js + docs/STYLES.md). The sixteen-slot palette maps here as seven roles plus the eleven named colours. The two variants are the same desk at two times of day, which is what the old roles/darkRoles pair meant before variants could say it properly."
 }

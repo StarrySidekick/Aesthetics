@@ -37,16 +37,21 @@
     ]
   },
   "color": {
-    "roles": {
-      "bg": "#F4E6D2",
-      "surface": "#FCF4E6",
-      "ink": "#3A2A24",
-      "inkSoft": "#7A6152",
-      "line": "#C8AE92",
-      "accent": "#C2563A",
-      "glow": "#F2B279"
-    },
-    "darkRoles": null,
+    "variants": [
+      {
+        "name": "Day",
+        "mode": "light",
+        "roles": {
+          "bg": "#F4E6D2",
+          "surface": "#FCF4E6",
+          "ink": "#3A2A24",
+          "inkSoft": "#7A6152",
+          "line": "#C8AE92",
+          "accent": "#C2563A",
+          "glow": "#F2B279"
+        }
+      }
+    ],
     "palette": [
       {
         "name": "Terracotta",
@@ -98,9 +103,9 @@
     "display": {
       "stack": "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
       "weight": "600",
+      "style": "italic",
       "tracking": ".01em",
-      "transform": "none",
-      "style": "italic"
+      "transform": "none"
     },
     "body": {
       "stack": "'Gill Sans', 'Gill Sans MT', Seravek, 'Trebuchet MS', sans-serif",
@@ -129,12 +134,22 @@
     "shadow": "0 2px 6px rgba(92,70,54,.18)",
     "shadowLg": "0 12px 30px rgba(92,70,54,.24)"
   },
+  "effects": {
+    "gloss": 0.15,
+    "glass": 0,
+    "grain": 0.2
+  },
+  "decor": {
+    "ornament": "❋",
+    "dividers": "ornament",
+    "underline": "wavy"
+  },
   "motion": {
     "speed": 320,
     "easing": "cubic-bezier(.35,.9,.35,1)",
     "entrance": "turn",
-    "stagger": 90,
     "hover": "tilt",
+    "stagger": 90,
     "ambient": "drift",
     "character": "Everything turns in — small rotations on entry, long easings, a carousel slowing rather than a machine stopping."
   },
@@ -145,15 +160,5 @@
     "alpha": 0.6,
     "notes": "Faint stucco grain; sunlight rather than pattern."
   },
-  "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story.",
-  "effects": {
-    "gloss": 0.15,
-    "glass": 0,
-    "grain": 0.2
-  },
-  "decor": {
-    "ornament": "❋",
-    "dividers": "ornament",
-    "underline": "wavy"
-  }
+  "notes": "DRAFT seeded as a starting point — every value here is a guess for the editor to correct, especially the story."
 }
