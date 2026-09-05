@@ -1,0 +1,180 @@
+{
+  "format": "aesthetic/1",
+  "id": "fantaccio",
+  "name": "Fantaccio",
+  "status": "draft",
+  "tagline": "The workshop is awake and the strings are cut",
+  "lineage": "New — a third room in the same country as Girando and Carca: over the hill from the walled town, in a workshop where the toys stopped waiting.",
+  "story": "A puppet-maker's workshop somewhere the Italian side and the French side of the mountains stopped arguing. Linden shavings on the floor, gesso drying on a shelf of blank faces, lacquer in three colours and gilt for the good ones. Every surface is painted wood: turned, chamfered, varnished, and dinged at the corners where it has been handled. Then one night the workshop wakes up. The marionettes have got the scissors, the wooden soldiers have taken the door, and the whole room is running itself by candlelight. Nothing here moves by being pushed — it is lowered in on a string, overshoots, and bobs until it settles. The revolution is cheerful. Nobody has been hurt. Somebody is still holding the strings and everyone has agreed to pretend otherwise.",
+  "mood": [
+    "whimsical",
+    "lacquered",
+    "conspiratorial",
+    "hand-turned"
+  ],
+  "principles": [
+    "Everything is painted wood — colour sits on a surface, it is never the surface.",
+    "Nothing starts itself. Motion arrives from above, overshoots, and settles.",
+    "Toy scale: big friendly radii, thick painted edges, generous room around each figure.",
+    "It is a revolution, so the accent is a flag — lacquer red, used where something is being declared.",
+    "Louder than Victoria on purpose. Victoria records; this one performs."
+  ],
+  "do": [
+    "Give every surface a thick painted border — two pixels, the brushed edge of a toy.",
+    "Let entrances drop from above with a small overshoot, one figure at a time, like a troupe coming on.",
+    "Vary the palette across a page the way a harlequin's costume varies: repeated diamonds, not one flat colour.",
+    "Varnish things. A little gloss is correct here; these objects have been oiled."
+  ],
+  "dont": [
+    "No greys — every neutral is wood, gesso or sawdust, and every one of them is warm.",
+    "No sharp corners; nothing in a workshop stays sharp after a season of handling.",
+    "No stillness. If nothing is happening, things should be swaying slightly, because they are hanging.",
+    "No menace. The uprising is charming, and the moment it stops being charming this stops being Fantaccio."
+  ],
+  "voice": {
+    "tone": "Theatrical and conspiratorial — stage directions whispered in the wings. It addresses you as a fellow conspirator, and it is never quite clear whether it is the puppet talking or the hand.",
+    "samples": [
+      "On the string",
+      "The workshop is awake",
+      "Nothing here moves by itself. Officially"
+    ]
+  },
+  "color": {
+    "variants": [
+      {
+        "name": "Workshop",
+        "mode": "light",
+        "roles": {
+          "bg": "#E4D9BE",
+          "surface": "#F5EEDC",
+          "ink": "#33261F",
+          "inkSoft": "#6E5A46",
+          "line": "#7A5F42",
+          "accent": "#C1272D",
+          "glow": "#E8A33D"
+        }
+      },
+      {
+        "name": "Candlelight",
+        "mode": "dark",
+        "roles": {
+          "bg": "#241A16",
+          "surface": "#33251E",
+          "ink": "#F2E4CC",
+          "inkSoft": "#BFA382",
+          "line": "#6E523A",
+          "accent": "#E04B44",
+          "glow": "#F4C070"
+        }
+      }
+    ],
+    "palette": [
+      {
+        "name": "Lacquer",
+        "hex": "#C1272D"
+      },
+      {
+        "name": "Arlecchino",
+        "hex": "#2F7A4F"
+      },
+      {
+        "name": "Cobalt",
+        "hex": "#2A5CA8"
+      },
+      {
+        "name": "Gilt",
+        "hex": "#C99A34"
+      },
+      {
+        "name": "Gesso",
+        "hex": "#F0E6D2"
+      },
+      {
+        "name": "Walnut",
+        "hex": "#5A4029"
+      },
+      {
+        "name": "Verdigris",
+        "hex": "#4E8C82"
+      },
+      {
+        "name": "Guignol",
+        "hex": "#D06A6B"
+      },
+      {
+        "name": "Sawdust",
+        "hex": "#D8C49A"
+      },
+      {
+        "name": "Pitch",
+        "hex": "#2B211A"
+      },
+      {
+        "name": "Ribbon",
+        "hex": "#8A5E9C"
+      }
+    ]
+  },
+  "type": {
+    "display": {
+      "stack": "Superclarendon, 'Bookman Old Style', Rockwell, Clarendon, 'Roboto Slab', Georgia, serif",
+      "weight": "700",
+      "style": "normal",
+      "tracking": ".01em",
+      "transform": "none"
+    },
+    "body": {
+      "stack": "Baskerville, 'Libre Baskerville', 'Hoefler Text', Georgia, serif",
+      "weight": "400",
+      "lineHeight": 1.55
+    },
+    "mono": {
+      "stack": "'Courier New', Courier, monospace"
+    },
+    "baseSize": 16,
+    "scale": 1.33
+  },
+  "shape": {
+    "corner": "round",
+    "radiusSm": 6,
+    "radiusMd": 14,
+    "radiusLg": 24,
+    "border": 2,
+    "borderStyle": "solid"
+  },
+  "space": {
+    "unit": 9,
+    "density": 1.1
+  },
+  "elevation": {
+    "shadow": "0 6px 14px rgba(51,38,31,.22)",
+    "shadowLg": "0 16px 34px rgba(51,38,31,.28)"
+  },
+  "effects": {
+    "gloss": 0.3,
+    "glass": 0,
+    "grain": 0.22
+  },
+  "decor": {
+    "ornament": "❖",
+    "dividers": "ornament",
+    "underline": "dotted"
+  },
+  "motion": {
+    "speed": 260,
+    "easing": "cubic-bezier(.34,1.56,.64,1)",
+    "entrance": "drop",
+    "hover": "lift",
+    "stagger": 80,
+    "ambient": "drift",
+    "character": "Nothing starts itself. Things are lowered in from above, overshoot a little, and bob until they settle — a marionette finding its feet. Between actions everything sways very slightly, because everything is hanging."
+  },
+  "texture": {
+    "kind": "lozenge",
+    "a": "#C9A96A",
+    "b": "#EFE6CF",
+    "alpha": 0.5,
+    "notes": "Harlequin lozenges — gilt diamonds on gesso, the costume and the toy-theatre flat. Under them it wants linden grain running one way and a scatter of sawdust, which the one backdrop slot can't also say. The floor of a workshop that is also a stage."
+  },
+  "notes": "Story, philosophy and voice are from Timothy's brief; the numbers are first guesses. Sits between Girando (warm, turning, a piazza) and Carca (stone, heraldic, walled) and is louder than either. Type is deliberately not Didone — Stelaine owns that — so the display face is a fat slab, the playbill and fairground register rather than the elegant one. Bookman and Clarendon do the Italian playbill; Baskerville does the French storybook. On the name: fantoccio (with an o) is the Italian for puppet or dummy; fantaccio reads as a foot soldier, from fante. Keeping Timothy's spelling — an army of foot soldiers is arguably the better word for a puppet revolution — but the aesthetic answers to both. Accent appears in the palette, so it aliases on token export."
+}
