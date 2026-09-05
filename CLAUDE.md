@@ -12,6 +12,7 @@ behaviour.
 ```bash
 scripts/serve.sh                # http://localhost:8020
 node test/smoke.mjs             # headless check, needs the server running
+node test/library.mjs           # every library file against the format — no browser
 ```
 
 Run the smoke test after any non-trivial change and **look at the
@@ -30,6 +31,38 @@ flavour** — the numbers say what to use, those say what for. The guide export
 (`asGuide` in `js/export.js`) is the same content written out to hand over
 whole; `asTokens` writes the numbers alone as a DTCG token file, for handing
 to a tool rather than a person.
+
+## The library is checked against the format, and the check reads schema.js
+
+`node test/library.mjs` validates every `library/*.aesthetic.json` — no browser,
+no server. The rules are **not written out again**: it walks `SECTIONS`, which
+is the actual source of truth, so a field added to the form is a field checked
+here the same day. It catches a `select` value the form cannot show, a range
+outside its own slider, a malformed hex, a missing colour role, an index entry
+with no file, a file missing from the index, and `none` where a shadowless
+aesthetic needs a zero shadow.
+
+It also asks whether two entries **share a tagline**, which sounds trivial and
+is the mistake that is easiest to make here: the library is Timothy's aesthetics
+under the names *this repo* gave them, and several grew up in Bureau under
+different ones. A second file for an aesthetic that is already on the shelf
+looks perfectly valid on its own and only shows up next to its twin.
+
+## The names have drifted, and that is Timothy's to settle
+
+Three of these were renamed here and the apps never followed:
+
+| Here | Bureau calls it | Elsewhere |
+| --- | --- | --- |
+| **Alyssian** | Victoria | — |
+| **Starprint** | Starful Gothic | — |
+| **Girando** | Girando | Tilemakers renamed it **Soffiando** |
+
+Each file's `lineage` records its own half of this, so nothing is lost — but a
+request to "build this in Victoria" will not find a file, and Girando now has
+two names in two repos. **Don't unilaterally rename anything to fix it**: which
+name wins is a decision, not a tidy-up, and it wants making once across all
+three repos rather than three times by accident.
 
 ## The three rules easiest to forget
 
