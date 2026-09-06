@@ -47,9 +47,28 @@ Doppelganger's editor already commits to git from the browser
 (`src/lib/publish.js`, git data API, one commit for everything); that mechanism
 is the obvious model and it is already in this account's own code.
 
-**2. A way for the other repos to pull from here.** Design it and write the
-design down before building it. The hard part is a consumption format that
-Bureau, Tilemakers and Doppelganger can all actually agree on, not the fetching.
+**2. A way for the other repos to pull from here.** ~~Design it and write the
+design down before building it.~~ **Designed and built 2026-09-06.**
+`scripts/dist.mjs` emits `dist/` — a manifest with a content hash per aesthetic,
+plus DTCG tokens and a CSS file each — and
+**[`docs/CONSUMING.md`](docs/CONSUMING.md)** is the contract.
+
+The decision that shaped it: **a consumer vendors a copy and commits it, and
+never fetches this library at runtime.** Bureau is an offline-first PWA and must
+not grow a network dependency on another origin; an aesthetic changing should be
+a diff somebody reads next to the tiles it affects; and three apps that break
+when a fourth repo's deploy fails is a worse system than three apps carrying a
+copy. The published tree exists so vendoring can be scripted and so a person can
+look, not as an API.
+
+Also settled there: **ids are the contract, and a consumer's own stored keys are
+its own problem.** Bureau keeps `style: 'victoria'` in every desk ever saved and
+hooks CSS on `html[data-style="victoria"]`, so it keeps a small table pointing at
+`alyssian` rather than taking a migration that buys nothing here.
+
+**Still to do: nobody consumes it yet.** The producing half exists; wiring
+Bureau, Tilemakers or Doppelganger to actually vendor from it is the next step,
+and doing one of them would prove the format before the other two copy it.
 
 ## Deliberately not next
 
