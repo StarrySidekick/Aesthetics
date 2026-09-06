@@ -1,5 +1,11 @@
 # Aesthetics — working notes for Claude Code
 
+> **Read [`INTENT.md`](INTENT.md) first.** It records what this project is for
+> and what Timothy wants next, in his own words, dated. Where it disagrees with
+> this file about *direction* it is newer and wins; where it disagrees about
+> *mechanics* — how the code works, what was decided deliberately, the
+> invariants — this file wins.
+
 A workbench for Timothy's aesthetics. Each one is a full style guide kept as
 JSON; the studio edits them and wears whichever is selected.
 
