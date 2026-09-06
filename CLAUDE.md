@@ -19,7 +19,18 @@ behaviour.
 scripts/serve.sh                # http://localhost:8020
 node test/smoke.mjs             # headless check, needs the server running
 node test/library.mjs           # every library file against the format — no browser
+node scripts/dist.mjs           # rebuild dist/ — what the other repos vendor
+npm test                        # library.mjs + dist --check, no browser
 ```
+
+`dist/` is the **distribution**: the numbers, as tokens and as CSS, plus a
+manifest carrying a content hash per aesthetic. It is generated, committed and
+published, and it is how Bureau, Tilemakers and Doppelganger are meant to stop
+each keeping their own drifted copy of the same colours. **Never edit it by
+hand** — edit the aesthetic and rerun the script. `docs/CONSUMING.md` is the
+contract, including the one rule that matters: a consumer *vendors* a copy and
+commits it, and never fetches this library at runtime, because Bureau is an
+offline-first PWA and must not grow a network dependency on another origin.
 
 Run the smoke test after any non-trivial change and **look at the
 screenshots** in `test/shots/`. This is an app whose entire job is how things
@@ -54,7 +65,7 @@ under the names *this repo* gave them, and several grew up in Bureau under
 different ones. A second file for an aesthetic that is already on the shelf
 looks perfectly valid on its own and only shows up next to its twin.
 
-## The names have drifted, and that is Timothy's to settle
+## The names drifted, and are now settled
 
 Three of these were renamed here and the apps never followed:
 
@@ -64,11 +75,19 @@ Three of these were renamed here and the apps never followed:
 | **Starprint** | Starful Gothic | — |
 | **Girando** | Girando | Tilemakers renamed it **Soffiando** |
 
-Each file's `lineage` records its own half of this, so nothing is lost — but a
-request to "build this in Victoria" will not find a file, and Girando now has
-two names in two repos. **Don't unilaterally rename anything to fix it**: which
-name wins is a decision, not a tidy-up, and it wants making once across all
-three repos rather than three times by accident.
+Each file's `lineage` records its own half of this, so nothing was ever lost.
+
+**Settled 2026-09-06.** **Alyssian**, **Starprint** and **Girando** are the
+canonical names, so this repo already has them right and Bureau's are the stale
+ones. And **Soffiando was never a conflict** — it names a game *mode* in
+Tilemakers rather than a rename of the aesthetic, so the three-way drift this
+table recorded is really a two-way one.
+
+That still does not mean renaming anything in the consuming repos. Bureau stores
+`style: 'victoria'` in every desk ever saved and hooks its CSS on
+`html[data-style="victoria"]`; changing those is a migration that buys nothing
+here. **A consumer keeps its own table from its stored key to the library's
+id** — see the mapping section of `docs/CONSUMING.md`.
 
 ## The three rules easiest to forget
 

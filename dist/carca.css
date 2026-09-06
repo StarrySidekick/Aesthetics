@@ -1,0 +1,55 @@
+/* Carca — Sun-baked stone, banners, a walled town */
+/* Generated from carca.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --carca-bg: #E8E0D0;
+  --carca-surface: #F2ECDE;
+  --carca-ink: #322A20;
+  --carca-ink-soft: #6A5E4C;
+  --carca-line: #8A7C64;
+  --carca-accent: #A64B2A;
+  --carca-glow: #D9A44B;
+  --carca-p-limestone: #D8CCB4;
+  --carca-p-mortar: #B0A48C;
+  --carca-p-moss: #5E6B3C;
+  --carca-p-rampart: #7A6E58;
+  --carca-p-banner: #A64B2A;
+  --carca-p-azure-field: #3A5A82;
+  --carca-p-vinewine: #6E3A44;
+  --carca-p-old-gold: #B08A3E;
+  --carca-p-cypress: #3E5240;
+  --carca-p-terrace: #C08050;
+  --carca-p-nightwall: #443C30;
+  --carca-display: Optima, 'Trajan Pro', 'Gill Sans', Georgia, serif;
+  --carca-body: 'Iowan Old Style', Palatino, Georgia, serif;
+  --carca-mono: 'Courier New', monospace;
+  --carca-display-weight: 600;
+  --carca-display-style: normal;
+  --carca-display-tracking: .08em;
+  --carca-display-transform: uppercase;
+  --carca-body-weight: 400;
+  --carca-leading: 1.5;
+  --carca-size: 16px;
+  --carca-scale: 1.25;
+  --carca-corner: cut;
+  --carca-r-sm: 5px;
+  --carca-r-md: 10px;
+  --carca-r-lg: 16px;
+  --carca-border: 2px;
+  --carca-border-style: solid;
+  --carca-unit: 8px;
+  --carca-density: 1;
+  --carca-shadow: 0 2px 0 rgba(50,42,32,.22);
+  --carca-shadow-lg: 0 4px 0 rgba(50,42,32,.26);
+  --carca-gloss: 0;
+  --carca-glass: 0px;
+  --carca-grain: 0.25;
+  --carca-ornament: "⁂";
+  --carca-dividers: double;
+  --carca-underline: solid;
+  --carca-speed: 140ms;
+  --carca-ease: ease-out;
+  --carca-entrance: drop;
+  --carca-stagger: 70ms;
+  --carca-hover: press;
+  --carca-ambient: none;
+}
