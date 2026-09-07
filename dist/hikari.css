@@ -1,0 +1,78 @@
+/* Hikari — Jack in: roads of light in a navy void */
+/* Generated from hikari.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --hikari-bg: #D8E6F7;
+  --hikari-surface: #FBFDFF;
+  --hikari-ink: #16324C;
+  --hikari-ink-soft: #5A7894;
+  --hikari-line: #9BB6CC;
+  --hikari-accent: #0070EC;
+  --hikari-glow: #00E8D8;
+  --hikari-p-net-blue: #0070EC;
+  --hikari-p-data-cyan: #00E8D8;
+  --hikari-p-panel-blue: #2E6FA8;
+  --hikari-p-panel-red: #C8384A;
+  --hikari-p-hp-amber: #F8B800;
+  --hikari-p-plug-in-green: #38D878;
+  --hikari-p-dark-chip: #8858C8;
+  --hikari-p-pet-white: #FCFCFC;
+  --hikari-p-undernet: #1B1030;
+  --hikari-p-guardrail: #7FE8F8;
+  --hikari-p-firewall: #F07818;
+  --hikari-display: 'Century Gothic', Futura, 'Avenir Next', 'Trebuchet MS', sans-serif;
+  --hikari-body: 'Trebuchet MS', 'Lucida Grande', Verdana, sans-serif;
+  --hikari-mono: 'Andale Mono', Consolas, 'Courier New', monospace;
+  --hikari-display-weight: 700;
+  --hikari-display-style: normal;
+  --hikari-display-tracking: .06em;
+  --hikari-display-transform: uppercase;
+  --hikari-body-weight: 400;
+  --hikari-leading: 1.5;
+  --hikari-size: 15px;
+  --hikari-scale: 1.2;
+  --hikari-corner: round;
+  --hikari-r-sm: 3px;
+  --hikari-r-md: 8px;
+  --hikari-r-lg: 14px;
+  --hikari-border: 2px;
+  --hikari-border-style: solid;
+  --hikari-unit: 7px;
+  --hikari-density: 0.95;
+  --hikari-shadow: 0 0 0 2px rgba(0,112,236,.16);
+  --hikari-shadow-lg: 0 0 20px rgba(0,232,216,.5);
+  --hikari-gloss: 0.3;
+  --hikari-glass: 6px;
+  --hikari-grain: 0;
+  --hikari-ornament: "⬢";
+  --hikari-dividers: line;
+  --hikari-underline: solid;
+  --hikari-speed: 120ms;
+  --hikari-ease: cubic-bezier(.2,.9,.25,1);
+  --hikari-entrance: grow;
+  --hikari-stagger: 30ms;
+  --hikari-hover: glow;
+  --hikari-ambient: drift;
+}
+
+[data-hikari-variant="jacked-in"] {
+  --hikari-bg: #060C22;
+  --hikari-surface: #12224A;
+  --hikari-ink: #E8F6FF;
+  --hikari-ink-soft: #86A8C8;
+  --hikari-line: #2A4A86;
+  --hikari-accent: #3CBCFC;
+  --hikari-glow: #00E8D8;
+}
+
+/* Jacked in */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hikari-bg: #060C22;
+    --hikari-surface: #12224A;
+    --hikari-ink: #E8F6FF;
+    --hikari-ink-soft: #86A8C8;
+    --hikari-line: #2A4A86;
+    --hikari-accent: #3CBCFC;
+    --hikari-glow: #00E8D8;
+  }
+}

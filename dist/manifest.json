@@ -1,0 +1,176 @@
+{
+  "format": "aesthetic-dist/1",
+  "count": 9,
+  "aesthetics": [
+    {
+      "id": "alyssian",
+      "name": "Alyssian",
+      "tagline": "An old desk: baize, brass, sage and claret",
+      "hash": "ddf1343632c4",
+      "variants": [
+        {
+          "name": "Picnic",
+          "mode": "light",
+          "dark": false
+        },
+        {
+          "name": "Twilight",
+          "mode": "dark",
+          "dark": true
+        }
+      ],
+      "tokens": "alyssian.tokens.json",
+      "css": "alyssian.css"
+    },
+    {
+      "id": "starprint",
+      "name": "Starprint",
+      "tagline": "White pencil on coloured paper, hand-drawn",
+      "hash": "25ef24038f40",
+      "variants": [
+        {
+          "name": "Gothic",
+          "mode": "dark",
+          "dark": true
+        },
+        {
+          "name": "Labyrinth",
+          "mode": "dark",
+          "dark": true
+        },
+        {
+          "name": "Skysea",
+          "mode": "dark",
+          "dark": true
+        },
+        {
+          "name": "Autumn",
+          "mode": "light",
+          "dark": false
+        }
+      ],
+      "tokens": "starprint.tokens.json",
+      "css": "starprint.css"
+    },
+    {
+      "id": "aeros",
+      "name": "Aeros",
+      "tagline": "Teal gloss and clear skies, straight from 2006",
+      "hash": "12eea7447ebb",
+      "variants": [
+        {
+          "name": "Day",
+          "mode": "light",
+          "dark": false
+        }
+      ],
+      "tokens": "aeros.tokens.json",
+      "css": "aeros.css"
+    },
+    {
+      "id": "golf-97",
+      "name": "Golf 97",
+      "tagline": "A CD-ROM golf course, rendered with total sincerity",
+      "hash": "2049ca9399b5",
+      "variants": [
+        {
+          "name": "Day",
+          "mode": "light",
+          "dark": false
+        }
+      ],
+      "tokens": "golf-97.tokens.json",
+      "css": "golf-97.css"
+    },
+    {
+      "id": "girando",
+      "name": "Girando",
+      "tagline": "Turning, warm, a piazza at golden hour",
+      "hash": "4f05e31f3dec",
+      "variants": [
+        {
+          "name": "Day",
+          "mode": "light",
+          "dark": false
+        }
+      ],
+      "tokens": "girando.tokens.json",
+      "css": "girando.css"
+    },
+    {
+      "id": "stelaine",
+      "name": "Stelaine",
+      "tagline": "Silver-lavender, starlit, quietly formal",
+      "hash": "da26f843bb05",
+      "variants": [
+        {
+          "name": "Moonrise",
+          "mode": "light",
+          "dark": false
+        },
+        {
+          "name": "Nocturne",
+          "mode": "dark",
+          "dark": true
+        }
+      ],
+      "tokens": "stelaine.tokens.json",
+      "css": "stelaine.css"
+    },
+    {
+      "id": "carca",
+      "name": "Carca",
+      "tagline": "Sun-baked stone, banners, a walled town",
+      "hash": "57fa312c4cd6",
+      "variants": [
+        {
+          "name": "Day",
+          "mode": "light",
+          "dark": false
+        }
+      ],
+      "tokens": "carca.tokens.json",
+      "css": "carca.css"
+    },
+    {
+      "id": "fantaccio",
+      "name": "Fantaccio",
+      "tagline": "The workshop is awake and the strings are cut",
+      "hash": "896d3b956328",
+      "variants": [
+        {
+          "name": "Workshop",
+          "mode": "light",
+          "dark": false
+        },
+        {
+          "name": "Candlelight",
+          "mode": "dark",
+          "dark": true
+        }
+      ],
+      "tokens": "fantaccio.tokens.json",
+      "css": "fantaccio.css"
+    },
+    {
+      "id": "hikari",
+      "name": "Hikari",
+      "tagline": "Jack in: roads of light in a navy void",
+      "hash": "605833172416",
+      "variants": [
+        {
+          "name": "Jacked out",
+          "mode": "light",
+          "dark": false
+        },
+        {
+          "name": "Jacked in",
+          "mode": "dark",
+          "dark": true
+        }
+      ],
+      "tokens": "hikari.tokens.json",
+      "css": "hikari.css"
+    }
+  ]
+}
