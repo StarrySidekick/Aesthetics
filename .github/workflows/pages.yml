@@ -35,6 +35,12 @@ jobs:
         run: |
           mkdir -p _site
           cp -r css js library index.html _site/
+          # dist/ is what the other repos vendor from — see docs/CONSUMING.md.
+          # It is committed, so there is nothing to build here; but it is
+          # verified, because publishing a distribution that no longer matches
+          # the library it claims to come from is the failure worth catching.
+          node scripts/dist.mjs --check
+          cp -r dist _site/
           touch _site/.nojekyll
           cd _site
           git init -b gh-pages
