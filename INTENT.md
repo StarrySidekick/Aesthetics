@@ -40,12 +40,20 @@ looks right while storing something unreachable.
 
 Two halves of the same job.
 
-**1. The studio should be able to save, not only export.** Export-to-JSON is for
-handing an aesthetic *out*. Timothy wants his edits to persist as committed
-files, so that a change he makes in the studio is a change that exists tomorrow.
-Doppelganger's editor already commits to git from the browser
-(`src/lib/publish.js`, git data API, one commit for everything); that mechanism
-is the obvious model and it is already in this account's own code.
+**1. The studio should be able to save, not only export.** ~~Export-to-JSON is
+for handing an aesthetic *out*. Timothy wants his edits to persist as
+committed files, so that a change he makes in the studio is a change that
+exists tomorrow. Doppelganger's editor already commits to git from the browser
+(`src/lib/publish.js`, git data API, one commit for everything); that
+mechanism is the obvious model and it is already in this account's own
+code.~~ **Built 2026-09-17.** `js/publish.js`, ported from Doppelganger's, plus
+a Publish fold in the studio (paste a token, press the button). One commit:
+the aesthetic's JSON, and `library/index.json` too when the id is new. Export
+still exists for the manual path and for the non-JSON formats. **What this
+does not do: touch `dist/`.** That is still `node scripts/dist.mjs`, run and
+committed separately — teaching the browser to reproduce the token/CSS/manifest
+generation itself was judged out of scope for one session, and dist.mjs
+already exists and is cheap to run.
 
 **2. A way for the other repos to pull from here.** ~~Design it and write the
 design down before building it.~~ **Designed and built 2026-09-06.**

@@ -111,6 +111,28 @@
         (or hand it to a session) and it is kept; the guide is the same thing written
         out for reading.</p>
     </section>
+
+    <details class="publish" id="publishbox">
+      <summary>Publish<span class="hint">Commit this aesthetic to <code>library/</code> straight from here</span></summary>
+      <div class="pubfields">
+        <div class="field">
+          <label for="pubtoken">GitHub token<span class="hint">fine-grained, this repo only, Contents: read and write</span></label>
+          <input id="pubtoken" class="mono" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+        </div>
+        <label class="checkrow"><input id="pubkeep" type="checkbox"> Keep this token in this browser</label>
+        <div class="pubrow">
+          <button data-act="publish" class="pubgo">Publish this aesthetic</button>
+          <button data-act="forget" class="mini">Forget token</button>
+        </div>
+        <p id="pubstatus" class="hint" aria-live="polite"></p>
+        <p class="hint">Goes straight to <code>api.github.com</code> in the
+          request header and nowhere else — never logged, never in a URL, never
+          in the commit. One commit: the aesthetic's JSON, plus
+          <code>library/index.json</code> if this id isn't on the shelf yet.
+          <code>dist/</code> is not part of this commit — run
+          <code>node scripts/dist.mjs</code> and commit that separately.</p>
+      </div>
+    </details>
   </aside>
 </div>
 

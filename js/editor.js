@@ -11,8 +11,13 @@
 import { SECTIONS, ROLES, MODES, blank, upgrade, get, set, rolesOf, variantsOf } from './schema.js';
 import { apply, fill, replay } from './preview.js';
 import { asJSON, asCSS, asGuide, asTokens } from './export.js';
+import { publishAesthetic } from './publish.js';
 
 const KEY = 'aestheticsStudio.v1';
+/* Kept apart from KEY so "Forget token" is a single, obvious operation and
+   the credential never rides along in the same blob as ordinary edit state. */
+const TOKEN_KEY = 'aestheticsStudio.token.v1';
+let TOKEN = '';
 const $ = (sel, el = document) => el.querySelector(sel);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -204,6 +209,66 @@ function renderExport () {
   }
 }
 
+/* ---- publish ------------------------------------------------------------
+   Commits the selected aesthetic to library/ (and library/index.json if it
+   is new) straight from the browser, via the GitHub git data API. See
+   js/publish.js for the mechanics and the token's handling. */
+
+function loadToken () {
+  try { TOKEN = localStorage.getItem(TOKEN_KEY) || ''; }
+  catch (e) { /* private browsing, or storage blocked — token lives for this load only */ }
+}
+
+function syncTokenUI () {
+  const t = $('#pubtoken'), k = $('#pubkeep');
+  if (t && document.activeElement !== t) t.value = TOKEN;
+  if (k) { try { k.checked = !!localStorage.getItem(TOKEN_KEY); } catch (e) { k.checked = false; } }
+}
+
+function onKeepToggle (keep) {
+  try {
+    if (keep && TOKEN) localStorage.setItem(TOKEN_KEY, TOKEN);
+    else localStorage.removeItem(TOKEN_KEY);
+  } catch (e) { /* private browsing, or quota — the checkbox just won't stick */ }
+}
+
+function pubStatus (msg, kind) {
+  const p = $('#pubstatus');
+  if (!p) return;
+  p.textContent = msg;
+  p.removeAttribute('data-ok'); p.removeAttribute('data-err');
+  if (kind === 'ok') p.setAttribute('data-ok', '');
+  if (kind === 'err') p.setAttribute('data-err', '');
+}
+
+async function doPublish () {
+  const btn = $('.pubgo');
+  const a = current();
+  if (!a) return;
+  if (!TOKEN) { pubStatus('Paste a token first — fine-grained, this repo only, Contents: read and write.', 'err'); return; }
+  const isNew = !LIB[S.selected];
+  if (btn) btn.disabled = true;
+  pubStatus('Publishing…');
+  try {
+    const out = await publishAesthetic({ token: TOKEN, aesthetic: a, isNew, order: ORDER });
+    /* the repo now agrees with the working copy — clear the fork so "edited"
+       stops showing, the same bargain Doppelganger's publish makes */
+    LIB[S.selected] = structuredClone(a);
+    if (isNew && !ORDER.includes(S.selected)) ORDER.push(S.selected);
+    delete S.edits[S.selected];
+    S.order = S.order.filter((x) => x !== S.selected);
+    save();
+    $('#deletebtn').hidden = true;
+    renderList();
+    refresh();
+    pubStatus(`Published ${out.paths.join(' + ')}. Pages rebuilds in about a minute.`, 'ok');
+  } catch (e) {
+    pubStatus(e.message || String(e), 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
 function download () {
   const a = current();
   const name = S.tab === 'json' ? `${a.id}.aesthetic.json`
@@ -220,6 +285,11 @@ function download () {
 
 function onInput (e) {
   const t = e.target;
+  if (t.id === 'pubtoken') {
+    TOKEN = t.value;
+    if ($('#pubkeep')?.checked) onKeepToggle(true);
+    return;
+  }
   if (!t.dataset.sw && !t.dataset.path) return;
   const a = editable();
   if (t.dataset.sw) {                       // palette rows
@@ -314,6 +384,13 @@ function onClick (e) {
       return;
     case 'download': download(); return;
     case 'import': $('#file').click(); return;
+    case 'publish': doPublish(); return;
+    case 'forget':
+      TOKEN = '';
+      try { localStorage.removeItem(TOKEN_KEY); } catch (err) { /* private browsing */ }
+      syncTokenUI();
+      pubStatus('Token forgotten.');
+      return;
     default: return;
   }
   save();
@@ -342,10 +419,12 @@ function boot2 () {
   renderList(); renderForm(); refresh();
   revealSelected();
   replay($('#demo'));
+  pubStatus('');            // a status from the aesthetic just left is not about this one
 }
 
 async function boot () {
   load();
+  loadToken();
   /* working copies saved under an older format get the new fields filled in,
      so a control never comes up reading `undefined` */
   for (const id of Object.keys(S.edits)) S.edits[id] = upgrade(S.edits[id]);
@@ -368,7 +447,9 @@ async function boot () {
   document.addEventListener('click', onClick);
   document.addEventListener('change', (e) => {
     if (e.target.id === 'file') onImport(e);
+    if (e.target.id === 'pubkeep') onKeepToggle(e.target.checked);
   });
+  syncTokenUI();
   boot2();
 }
 

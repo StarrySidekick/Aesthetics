@@ -71,10 +71,25 @@ the rack with no height at all on an older iOS.
 
 Edits live in localStorage as a working copy per aesthetic; the committed file
 shows through until you touch something, and **Revert to file** throws the
-working copy away. Shipping a change is an export: the JSON tab, Copy or
-Download, and commit it over the file in `library/` — or paste it at a session
-and say "commit this". **New** starts a blank one, **Fork** copies the current
+working copy away. **New** starts a blank one, **Fork** copies the current
 one, **Import** reads a `.aesthetic.json` back in.
+
+Shipping a change is either of two things now. The manual path is still there:
+the JSON tab, Copy or Download, and commit it over the file in `library/` — or
+paste it at a session and say "commit this". Or open **Publish**, under the
+exports, paste in a GitHub token and press the button — the studio commits
+`library/<id>.aesthetic.json` straight to `main`, and `library/index.json`
+alongside it the first time an id is new. `js/publish.js` is the mechanism,
+ported from Doppelganger's editor (`src/lib/publish.js`) rather than
+re-derived, because that repo already solved the same problem: the git data
+API for one commit however many files, a ref update that isn't forced so a
+concurrent push is refused rather than clobbered, and a token that lives only
+in the `Authorization` header, kept in localStorage only if you tick "Keep
+this token in this browser," and dropped by "Forget token". Use a
+**fine-grained** token scoped to this one repo, Contents: read and write,
+short expiry — not a classic token. **Publish does not touch `dist/`** — run
+`node scripts/dist.mjs` and commit that separately, the same as any other
+library edit.
 
 Two controls worth knowing: the **variant picker** appears only for
 aesthetics with more than one colourway, and **Plain room** drops the

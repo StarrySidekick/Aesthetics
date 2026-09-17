@@ -354,6 +354,33 @@ html[data-enter='grow'] .pv-room [data-stag].arrived { animation-name: enter-gro
 .vhead { display: flex; gap: 6px; align-items: center }
 .vhead input[type=text] { flex: 1; min-width: 0 }
 
+/* ---- publish ------------------------------------------------------------
+   Same card language as .sec (the form's own accordions) — this is one more
+   fold of the same kind, just living beside the exports instead of inside
+   the form. */
+.publish {
+  background: var(--c-surface); border: 1px solid var(--c-line);
+  border-radius: var(--c-r);
+}
+.publish summary {
+  padding: 10px 14px; font-weight: 600; cursor: pointer; list-style: none;
+  display: flex; align-items: baseline; gap: 10px; font-family: var(--c-display);
+}
+.publish summary::-webkit-details-marker { display: none }
+.publish summary::before { content: '▸'; color: var(--c-inksoft); font-size: 11px }
+.publish[open] summary::before { content: '▾' }
+.pubfields { padding: 4px 14px 14px; display: grid; gap: 10px }
+.pubrow { display: flex; gap: 8px; align-items: center }
+.pubgo {
+  background: var(--c-ink); color: var(--c-surface); border: 1px solid var(--c-ink);
+  border-radius: calc(var(--c-r) * .75); padding: 6px 14px; font-weight: 600;
+}
+.pubgo:hover { filter: brightness(1.1) }
+.pubgo:disabled { opacity: .5; cursor: default; filter: none }
+#pubstatus:empty { display: none }
+#pubstatus[data-err] { color: #b8462f }
+#pubstatus[data-ok] { color: #2f7d4f }
+
 /* ---- the exports ------------------------------------------------------- */
 .export { display: grid; gap: 8px }
 .tabs { display: flex; gap: 6px; align-items: center }
