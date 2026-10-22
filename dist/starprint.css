@@ -1,0 +1,98 @@
+/* Starprint — White pencil on coloured paper, hand-drawn */
+/* Generated from starprint.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --starprint-bg: #07080C;
+  --starprint-surface: #0E1016;
+  --starprint-ink: #F4F6F8;
+  --starprint-ink-soft: #A9B2BF;
+  --starprint-line: #F4F6F8;
+  --starprint-accent: #6FD3F5;
+  --starprint-glow: #7DE8B0;
+  --starprint-p-ink: #14161C;
+  --starprint-p-slate-night: #1B1E25;
+  --starprint-p-charcoal: #23262E;
+  --starprint-p-deep-blue: #0E2733;
+  --starprint-p-harbour: #123544;
+  --starprint-p-pine: #16443F;
+  --starprint-p-fern-night: #1A3B2C;
+  --starprint-p-graphite: #2B2F38;
+  --starprint-p-midnight: #191D2A;
+  --starprint-p-pitch: #101820;
+  --starprint-p-ash: #33383F;
+  --starprint-display: Optima, 'Gill Sans', 'Gill Sans MT', 'Avenir Next', 'Trebuchet MS', sans-serif;
+  --starprint-body: Optima, 'Gill Sans', 'Gill Sans MT', 'Avenir Next', 'Trebuchet MS', sans-serif;
+  --starprint-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --starprint-display-weight: 600;
+  --starprint-display-style: normal;
+  --starprint-display-tracking: .01em;
+  --starprint-display-transform: none;
+  --starprint-body-weight: 400;
+  --starprint-leading: 1.55;
+  --starprint-size: 16px;
+  --starprint-scale: 1.25;
+  --starprint-corner: round;
+  --starprint-r-sm: 4px;
+  --starprint-r-md: 8px;
+  --starprint-r-lg: 12px;
+  --starprint-border: 1.5px;
+  --starprint-border-style: solid;
+  --starprint-unit: 8px;
+  --starprint-density: 1.05;
+  --starprint-shadow: 0 0 0 0 transparent;
+  --starprint-shadow-lg: 0 0 0 0 transparent;
+  --starprint-gloss: 0;
+  --starprint-glass: 0px;
+  --starprint-grain: 0;
+  --starprint-ornament: "✦";
+  --starprint-dividers: ornament;
+  --starprint-underline: dotted;
+  --starprint-speed: 220ms;
+  --starprint-ease: ease-in-out;
+  --starprint-entrance: fade;
+  --starprint-stagger: 80ms;
+  --starprint-hover: glow;
+  --starprint-ambient: twinkle;
+}
+
+[data-starprint-variant="labyrinth"] {
+  --starprint-bg: #08130E;
+  --starprint-surface: #0F1D16;
+  --starprint-ink: #F1F7F2;
+  --starprint-ink-soft: #A4BEAD;
+  --starprint-line: #F1F7F2;
+  --starprint-accent: #7FE3A6;
+  --starprint-glow: #CFEF9C;
+}
+
+[data-starprint-variant="skysea"] {
+  --starprint-bg: #061426;
+  --starprint-surface: #0C1F33;
+  --starprint-ink: #EEF6FD;
+  --starprint-ink-soft: #A2BCD4;
+  --starprint-line: #EEF6FD;
+  --starprint-accent: #6FC3F5;
+  --starprint-glow: #8FE6E0;
+}
+
+[data-starprint-variant="autumn"] {
+  --starprint-bg: #D9C6A6;
+  --starprint-surface: #E7DAC0;
+  --starprint-ink: #3A2A18;
+  --starprint-ink-soft: #6E5738;
+  --starprint-line: #3A2A18;
+  --starprint-accent: #A8562A;
+  --starprint-glow: #C98A3C;
+}
+
+/* Labyrinth */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --starprint-bg: #08130E;
+    --starprint-surface: #0F1D16;
+    --starprint-ink: #F1F7F2;
+    --starprint-ink-soft: #A4BEAD;
+    --starprint-line: #F1F7F2;
+    --starprint-accent: #7FE3A6;
+    --starprint-glow: #CFEF9C;
+  }
+}

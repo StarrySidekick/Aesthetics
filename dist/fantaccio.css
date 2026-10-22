@@ -1,0 +1,78 @@
+/* Fantaccio — The workshop is awake and the strings are cut */
+/* Generated from fantaccio.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --fantaccio-bg: #E4D9BE;
+  --fantaccio-surface: #F5EEDC;
+  --fantaccio-ink: #33261F;
+  --fantaccio-ink-soft: #6E5A46;
+  --fantaccio-line: #7A5F42;
+  --fantaccio-accent: #C1272D;
+  --fantaccio-glow: #E8A33D;
+  --fantaccio-p-lacquer: #C1272D;
+  --fantaccio-p-arlecchino: #2F7A4F;
+  --fantaccio-p-cobalt: #2A5CA8;
+  --fantaccio-p-gilt: #C99A34;
+  --fantaccio-p-gesso: #F0E6D2;
+  --fantaccio-p-walnut: #5A4029;
+  --fantaccio-p-verdigris: #4E8C82;
+  --fantaccio-p-guignol: #D06A6B;
+  --fantaccio-p-sawdust: #D8C49A;
+  --fantaccio-p-pitch: #2B211A;
+  --fantaccio-p-ribbon: #8A5E9C;
+  --fantaccio-display: Superclarendon, 'Bookman Old Style', Rockwell, Clarendon, 'Roboto Slab', Georgia, serif;
+  --fantaccio-body: Baskerville, 'Libre Baskerville', 'Hoefler Text', Georgia, serif;
+  --fantaccio-mono: 'Courier New', Courier, monospace;
+  --fantaccio-display-weight: 700;
+  --fantaccio-display-style: normal;
+  --fantaccio-display-tracking: .01em;
+  --fantaccio-display-transform: none;
+  --fantaccio-body-weight: 400;
+  --fantaccio-leading: 1.55;
+  --fantaccio-size: 16px;
+  --fantaccio-scale: 1.33;
+  --fantaccio-corner: round;
+  --fantaccio-r-sm: 6px;
+  --fantaccio-r-md: 14px;
+  --fantaccio-r-lg: 24px;
+  --fantaccio-border: 2px;
+  --fantaccio-border-style: solid;
+  --fantaccio-unit: 9px;
+  --fantaccio-density: 1.1;
+  --fantaccio-shadow: 0 6px 14px rgba(51,38,31,.22);
+  --fantaccio-shadow-lg: 0 16px 34px rgba(51,38,31,.28);
+  --fantaccio-gloss: 0.3;
+  --fantaccio-glass: 0px;
+  --fantaccio-grain: 0.22;
+  --fantaccio-ornament: "❖";
+  --fantaccio-dividers: ornament;
+  --fantaccio-underline: dotted;
+  --fantaccio-speed: 260ms;
+  --fantaccio-ease: cubic-bezier(.34,1.56,.64,1);
+  --fantaccio-entrance: drop;
+  --fantaccio-stagger: 80ms;
+  --fantaccio-hover: lift;
+  --fantaccio-ambient: drift;
+}
+
+[data-fantaccio-variant="candlelight"] {
+  --fantaccio-bg: #241A16;
+  --fantaccio-surface: #33251E;
+  --fantaccio-ink: #F2E4CC;
+  --fantaccio-ink-soft: #BFA382;
+  --fantaccio-line: #6E523A;
+  --fantaccio-accent: #E04B44;
+  --fantaccio-glow: #F4C070;
+}
+
+/* Candlelight */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fantaccio-bg: #241A16;
+    --fantaccio-surface: #33251E;
+    --fantaccio-ink: #F2E4CC;
+    --fantaccio-ink-soft: #BFA382;
+    --fantaccio-line: #6E523A;
+    --fantaccio-accent: #E04B44;
+    --fantaccio-glow: #F4C070;
+  }
+}

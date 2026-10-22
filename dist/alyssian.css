@@ -1,0 +1,78 @@
+/* Alyssian — An old desk: baize, brass, sage and claret */
+/* Generated from alyssian.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --alyssian-bg: #E9E1CC;
+  --alyssian-surface: #EFEADA;
+  --alyssian-ink: #2A241C;
+  --alyssian-ink-soft: #5A5142;
+  --alyssian-line: #4A4034;
+  --alyssian-accent: #A9793F;
+  --alyssian-glow: #D9B57C;
+  --alyssian-p-walnut: #6F5137;
+  --alyssian-p-baize: #4A7C59;
+  --alyssian-p-sage: #6E7F63;
+  --alyssian-p-emerald: #2E6B52;
+  --alyssian-p-royal: #4A6382;
+  --alyssian-p-delft: #5A7A9E;
+  --alyssian-p-claret: #8E3B38;
+  --alyssian-p-gilt: #9A7B2F;
+  --alyssian-p-oak: #8A6A3C;
+  --alyssian-p-regal: #5E4A72;
+  --alyssian-p-pewter: #6E7075;
+  --alyssian-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --alyssian-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --alyssian-mono: 'Courier New', Courier, monospace;
+  --alyssian-display-weight: 600;
+  --alyssian-display-style: normal;
+  --alyssian-display-tracking: 0em;
+  --alyssian-display-transform: none;
+  --alyssian-body-weight: 400;
+  --alyssian-leading: 1.5;
+  --alyssian-size: 16px;
+  --alyssian-scale: 1.25;
+  --alyssian-corner: round;
+  --alyssian-r-sm: 4px;
+  --alyssian-r-md: 9px;
+  --alyssian-r-lg: 14px;
+  --alyssian-border: 1px;
+  --alyssian-border-style: solid;
+  --alyssian-unit: 8px;
+  --alyssian-density: 1;
+  --alyssian-shadow: 0 1px 3px rgba(42,36,28,.18);
+  --alyssian-shadow-lg: 0 10px 26px rgba(42,36,28,.24);
+  --alyssian-gloss: 0;
+  --alyssian-glass: 0px;
+  --alyssian-grain: 0.15;
+  --alyssian-ornament: "❦";
+  --alyssian-dividers: ornament;
+  --alyssian-underline: solid;
+  --alyssian-speed: 180ms;
+  --alyssian-ease: ease-out;
+  --alyssian-entrance: fade;
+  --alyssian-stagger: 60ms;
+  --alyssian-hover: lift;
+  --alyssian-ambient: none;
+}
+
+[data-alyssian-variant="twilight"] {
+  --alyssian-bg: #241C14;
+  --alyssian-surface: #2C2419;
+  --alyssian-ink: #EDE3CE;
+  --alyssian-ink-soft: #B5A587;
+  --alyssian-line: #6B5942;
+  --alyssian-accent: #C89B54;
+  --alyssian-glow: #E4C68A;
+}
+
+/* Twilight */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --alyssian-bg: #241C14;
+    --alyssian-surface: #2C2419;
+    --alyssian-ink: #EDE3CE;
+    --alyssian-ink-soft: #B5A587;
+    --alyssian-line: #6B5942;
+    --alyssian-accent: #C89B54;
+    --alyssian-glow: #E4C68A;
+  }
+}

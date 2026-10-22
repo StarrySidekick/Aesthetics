@@ -1,0 +1,78 @@
+/* Stelaine — Silver-lavender, starlit, quietly formal */
+/* Generated from stelaine.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --stelaine-bg: #ECEAF4;
+  --stelaine-surface: #F9F8FD;
+  --stelaine-ink: #2E2A3E;
+  --stelaine-ink-soft: #6A6484;
+  --stelaine-line: #B4AECB;
+  --stelaine-accent: #7A6BC4;
+  --stelaine-glow: #C9BFF2;
+  --stelaine-p-moonstone: #C8C4D8;
+  --stelaine-p-wisteria: #8E7BB8;
+  --stelaine-p-dusk: #524A78;
+  --stelaine-p-silverleaf: #A8AAB8;
+  --stelaine-p-frost: #DDE2EE;
+  --stelaine-p-nocturne: #2E3252;
+  --stelaine-p-orchid-grey: #7E7290;
+  --stelaine-p-pale-gold: #C9B98A;
+  --stelaine-p-slate-bloom: #5E6478;
+  --stelaine-p-ashlight: #8F93A3;
+  --stelaine-p-deep-violet: #3A2E58;
+  --stelaine-display: Didot, 'Bodoni MT', 'Playfair Display', Georgia, serif;
+  --stelaine-body: -apple-system, 'Avenir Next', 'Segoe UI', sans-serif;
+  --stelaine-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --stelaine-display-weight: 500;
+  --stelaine-display-style: normal;
+  --stelaine-display-tracking: .04em;
+  --stelaine-display-transform: none;
+  --stelaine-body-weight: 300;
+  --stelaine-leading: 1.6;
+  --stelaine-size: 16px;
+  --stelaine-scale: 1.3;
+  --stelaine-corner: round;
+  --stelaine-r-sm: 2px;
+  --stelaine-r-md: 6px;
+  --stelaine-r-lg: 10px;
+  --stelaine-border: 0.5px;
+  --stelaine-border-style: solid;
+  --stelaine-unit: 10px;
+  --stelaine-density: 1.25;
+  --stelaine-shadow: 0 1px 2px rgba(46,42,62,.10);
+  --stelaine-shadow-lg: 0 12px 36px rgba(46,42,62,.14);
+  --stelaine-gloss: 0;
+  --stelaine-glass: 6px;
+  --stelaine-grain: 0;
+  --stelaine-ornament: "✧";
+  --stelaine-dividers: line;
+  --stelaine-underline: none;
+  --stelaine-speed: 260ms;
+  --stelaine-ease: cubic-bezier(.25,.1,.25,1);
+  --stelaine-entrance: fade;
+  --stelaine-stagger: 120ms;
+  --stelaine-hover: glow;
+  --stelaine-ambient: none;
+}
+
+[data-stelaine-variant="nocturne"] {
+  --stelaine-bg: #17151F;
+  --stelaine-surface: #1F1C2B;
+  --stelaine-ink: #E9E6F4;
+  --stelaine-ink-soft: #9A93B5;
+  --stelaine-line: #4A4462;
+  --stelaine-accent: #9C8CE8;
+  --stelaine-glow: #C9BFF2;
+}
+
+/* Nocturne */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --stelaine-bg: #17151F;
+    --stelaine-surface: #1F1C2B;
+    --stelaine-ink: #E9E6F4;
+    --stelaine-ink-soft: #9A93B5;
+    --stelaine-line: #4A4462;
+    --stelaine-accent: #9C8CE8;
+    --stelaine-glow: #C9BFF2;
+  }
+}

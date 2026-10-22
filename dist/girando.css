@@ -1,0 +1,55 @@
+/* Girando — Turning, warm, a piazza at golden hour */
+/* Generated from girando.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --girando-bg: #F4E6D2;
+  --girando-surface: #FCF4E6;
+  --girando-ink: #3A2A24;
+  --girando-ink-soft: #7A6152;
+  --girando-line: #C8AE92;
+  --girando-accent: #C2563A;
+  --girando-glow: #F2B279;
+  --girando-p-terracotta: #C2563A;
+  --girando-p-ochre: #D89B3E;
+  --girando-p-shutter: #3F7D78;
+  --girando-p-olive: #7A7A3C;
+  --girando-p-stucco: #E8CFA8;
+  --girando-p-vine: #5A7A45;
+  --girando-p-dusk: #8A5A72;
+  --girando-p-stone: #A89880;
+  --girando-p-awning: #B03A2E;
+  --girando-p-sky-late: #E2A46B;
+  --girando-p-shadow: #5C4636;
+  --girando-display: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --girando-body: 'Gill Sans', 'Gill Sans MT', Seravek, 'Trebuchet MS', sans-serif;
+  --girando-mono: ui-monospace, Menlo, monospace;
+  --girando-display-weight: 600;
+  --girando-display-style: italic;
+  --girando-display-tracking: .01em;
+  --girando-display-transform: none;
+  --girando-body-weight: 400;
+  --girando-leading: 1.55;
+  --girando-size: 16px;
+  --girando-scale: 1.28;
+  --girando-corner: round;
+  --girando-r-sm: 8px;
+  --girando-r-md: 16px;
+  --girando-r-lg: 28px;
+  --girando-border: 1px;
+  --girando-border-style: solid;
+  --girando-unit: 9px;
+  --girando-density: 1.15;
+  --girando-shadow: 0 2px 6px rgba(92,70,54,.18);
+  --girando-shadow-lg: 0 12px 30px rgba(92,70,54,.24);
+  --girando-gloss: 0.15;
+  --girando-glass: 0px;
+  --girando-grain: 0.2;
+  --girando-ornament: "❋";
+  --girando-dividers: ornament;
+  --girando-underline: wavy;
+  --girando-speed: 320ms;
+  --girando-ease: cubic-bezier(.35,.9,.35,1);
+  --girando-entrance: turn;
+  --girando-stagger: 90ms;
+  --girando-hover: tilt;
+  --girando-ambient: drift;
+}

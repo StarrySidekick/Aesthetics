@@ -1,0 +1,180 @@
+{
+  "format": "aesthetic/1",
+  "id": "hikari",
+  "name": "Hikari",
+  "status": "draft",
+  "tagline": "Jack in: roads of light in a navy void",
+  "lineage": "New — from Mega Man Battle Network (Capcom, 2001–2005) and the internet it imagined. Named for the Hikari family at its centre; 光 is light.",
+  "story": "Two places, one toggle. Jacked out it is a weekday morning in 2002: a white plastic handheld warm from your pocket, a pale blue screen, everything outlined in a chunky two-pixel border because a thing without an outline hasn't loaded yet. Then you jack in, and the room becomes the Net — a navy void with roads of light laid through it, guardrails glowing cyan, panels tiled six by three under your feet, mail arriving as a small square that pops rather than fades. This is the internet as somewhere you could walk around in, drawn by people who thought that was going to be wonderful. The light is the only ornament and it comes from inside the screen.",
+  "mood": [
+    "electric",
+    "optimistic",
+    "navigable",
+    "humming"
+  ],
+  "principles": [
+    "The Net is a place, not a metaphor — it has roads, edges, and a floor you can see.",
+    "Light is the only ornament: nothing decorative that doesn't emit.",
+    "Every window is outlined. A surface with no border hasn't finished loading.",
+    "Snap, then hold — things arrive in one fast beat and then sit perfectly still.",
+    "Jacked out and jacked in are the same place seen from two sides, so the after-dark set is not a dimming, it is a different world."
+  ],
+  "do": [
+    "Outline everything at two pixels; let glow do the job a drop shadow would do elsewhere.",
+    "Let cyan emit and navy hold — the accent is a light source, never a fill you rest text on.",
+    "Set anything the system says in caps, anything a person says in sentence case.",
+    "Keep the grid visible. The floor of this place is tiled and that is load-bearing."
+  ],
+  "dont": [
+    "No drop shadows — nothing here is lit from above; things glow or they don't.",
+    "No muted colours. On a backlit screen in 2001 there was no such thing as subtle.",
+    "No material textures — the only substances are light and moulded plastic.",
+    "No slow easings; anything over 150ms reads as the machine struggling."
+  ],
+  "voice": {
+    "tone": "Clipped system text with the upbeat cadence of a good 2002 translation. It announces rather than explains, and it is a little too pleased about a successful operation.",
+    "samples": [
+      "Logged",
+      "Jack in — ready when you are",
+      "Nothing on the Net yet. Try a different area"
+    ]
+  },
+  "color": {
+    "variants": [
+      {
+        "name": "Jacked out",
+        "mode": "light",
+        "roles": {
+          "bg": "#D8E6F7",
+          "surface": "#FBFDFF",
+          "ink": "#16324C",
+          "inkSoft": "#5A7894",
+          "line": "#9BB6CC",
+          "accent": "#0070EC",
+          "glow": "#00E8D8"
+        }
+      },
+      {
+        "name": "Jacked in",
+        "mode": "dark",
+        "roles": {
+          "bg": "#060C22",
+          "surface": "#12224A",
+          "ink": "#E8F6FF",
+          "inkSoft": "#86A8C8",
+          "line": "#2A4A86",
+          "accent": "#3CBCFC",
+          "glow": "#00E8D8"
+        }
+      }
+    ],
+    "palette": [
+      {
+        "name": "Net blue",
+        "hex": "#0070EC"
+      },
+      {
+        "name": "Data cyan",
+        "hex": "#00E8D8"
+      },
+      {
+        "name": "Panel blue",
+        "hex": "#2E6FA8"
+      },
+      {
+        "name": "Panel red",
+        "hex": "#C8384A"
+      },
+      {
+        "name": "HP amber",
+        "hex": "#F8B800"
+      },
+      {
+        "name": "Plug-in green",
+        "hex": "#38D878"
+      },
+      {
+        "name": "Dark chip",
+        "hex": "#8858C8"
+      },
+      {
+        "name": "PET white",
+        "hex": "#FCFCFC"
+      },
+      {
+        "name": "Undernet",
+        "hex": "#1B1030"
+      },
+      {
+        "name": "Guardrail",
+        "hex": "#7FE8F8"
+      },
+      {
+        "name": "Firewall",
+        "hex": "#F07818"
+      }
+    ]
+  },
+  "type": {
+    "display": {
+      "stack": "'Century Gothic', Futura, 'Avenir Next', 'Trebuchet MS', sans-serif",
+      "weight": "700",
+      "style": "normal",
+      "tracking": ".06em",
+      "transform": "uppercase"
+    },
+    "body": {
+      "stack": "'Trebuchet MS', 'Lucida Grande', Verdana, sans-serif",
+      "weight": "400",
+      "lineHeight": 1.5
+    },
+    "mono": {
+      "stack": "'Andale Mono', Consolas, 'Courier New', monospace"
+    },
+    "baseSize": 15,
+    "scale": 1.2
+  },
+  "shape": {
+    "corner": "round",
+    "radiusSm": 3,
+    "radiusMd": 8,
+    "radiusLg": 14,
+    "border": 2,
+    "borderStyle": "solid"
+  },
+  "space": {
+    "unit": 7,
+    "density": 0.95
+  },
+  "elevation": {
+    "shadow": "0 0 0 2px rgba(0,112,236,.16)",
+    "shadowLg": "0 0 20px rgba(0,232,216,.5)"
+  },
+  "effects": {
+    "gloss": 0.3,
+    "glass": 6,
+    "grain": 0
+  },
+  "decor": {
+    "ornament": "⬢",
+    "dividers": "line",
+    "underline": "solid"
+  },
+  "motion": {
+    "speed": 120,
+    "easing": "cubic-bezier(.2,.9,.25,1)",
+    "entrance": "grow",
+    "hover": "glow",
+    "stagger": 30,
+    "ambient": "drift",
+    "character": "Instant and electric. Windows pop open rather than fade in, one after another the way a chip menu fills; nothing lingers, nothing bounces, and between actions the whole screen holds still and hums."
+  },
+  "texture": {
+    "kind": "grid",
+    "a": "#8FC4EE",
+    "b": "#DCE9F8",
+    "alpha": 0.7,
+    "notes": "The floor of the Net: a ruled grid of light, guardrails running to the horizon. After dark the same grid is navy on navy, which is what the toward() walk already does. Still wants two things the format can't say — horizontal scanlines at about 2px, and a bright dot travelling the traces."
+  },
+  "notes": "Story, philosophy and voice are from Timothy's brief; the numbers are first guesses. The after-dark set is doing real work here rather than dimming the lights — daylight is jacked out (the PET, the white plastic, the classroom) and after dark is jacked in (the Net). Colours seeded from the series' published palettes: Net blue #0070EC and data cyan #00E8D8 are the recurring pair. Accent and glow both appear in the palette, so they alias on token export."
+}

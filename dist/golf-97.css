@@ -1,0 +1,55 @@
+/* Golf 97 — A CD-ROM golf course, rendered with total sincerity */
+/* Generated from golf-97.aesthetic.json — edit the aesthetic, not this. */
+:root {
+  --golf-97-bg: #DCD8CA;
+  --golf-97-surface: #ECEAE0;
+  --golf-97-ink: #1E241C;
+  --golf-97-ink-soft: #55604E;
+  --golf-97-line: #8B9282;
+  --golf-97-accent: #2E7D3A;
+  --golf-97-glow: #9ADF6E;
+  --golf-97-p-fairway: #2E7D3A;
+  --golf-97-p-rough: #4E6B34;
+  --golf-97-p-sand: #D8C084;
+  --golf-97-p-sky: #7FB3D8;
+  --golf-97-p-flag: #C23B2E;
+  --golf-97-p-bark: #6B4A2A;
+  --golf-97-p-water: #2B6B99;
+  --golf-97-p-tee: #F2EFE2;
+  --golf-97-p-scorecard: #F5EEC9;
+  --golf-97-p-umbra: #33402E;
+  --golf-97-p-plastic: #C9C4B4;
+  --golf-97-display: Verdana, Tahoma, 'DejaVu Sans', sans-serif;
+  --golf-97-body: Verdana, Tahoma, 'DejaVu Sans', sans-serif;
+  --golf-97-mono: 'Courier New', monospace;
+  --golf-97-display-weight: 700;
+  --golf-97-display-style: normal;
+  --golf-97-display-tracking: 0em;
+  --golf-97-display-transform: none;
+  --golf-97-body-weight: 400;
+  --golf-97-leading: 1.45;
+  --golf-97-size: 14px;
+  --golf-97-scale: 1.2;
+  --golf-97-corner: round;
+  --golf-97-r-sm: 0px;
+  --golf-97-r-md: 2px;
+  --golf-97-r-lg: 4px;
+  --golf-97-border: 2px;
+  --golf-97-border-style: solid;
+  --golf-97-unit: 6px;
+  --golf-97-density: 0.95;
+  --golf-97-shadow: inset -1px -1px 0 rgba(0,0,0,.22), inset 1px 1px 0 rgba(255,255,255,.75);
+  --golf-97-shadow-lg: inset -2px -2px 0 rgba(0,0,0,.25), inset 2px 2px 0 rgba(255,255,255,.85);
+  --golf-97-gloss: 0.25;
+  --golf-97-glass: 0px;
+  --golf-97-grain: 0;
+  --golf-97-ornament: "▪";
+  --golf-97-dividers: double;
+  --golf-97-underline: solid;
+  --golf-97-speed: 80ms;
+  --golf-97-ease: linear;
+  --golf-97-entrance: none;
+  --golf-97-stagger: 0ms;
+  --golf-97-hover: press;
+  --golf-97-ambient: none;
+}
