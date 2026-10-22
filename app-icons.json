@@ -1,0 +1,15 @@
+{
+  "out": "icons",
+  "apps": [
+    {
+      "id": "aesthetics",
+      "name": "Aesthetics",
+      "short": "Aesthetics",
+      "art": "icons/aesthetics.svg",
+      "theme": "#E9E1CC",
+      "dir": "",
+      "pages": ["index.html"],
+      "scope": "./"
+    }
+  ]
+}

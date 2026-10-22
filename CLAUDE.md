@@ -38,6 +38,20 @@ look; a passing assertion has never once meant it looked right. Two real bugs
 were caught that way already — a strength slider wired to nothing, and a
 room that stayed daylight while the desk went dark.
 
+## The home-screen icon
+
+Timothy saves the studio to his phone's home screen, so it has its own icon
+(2026-10-22: "can we give each repo its own icon for usability purposes").
+The art is `icons/aesthetics.svg`; `app-icons.json` lists the app. A new app
+or page goes into `app-icons.json`, and the app-icons skill's script is run
+again from this repo, in the same commit:
+`node <Interpersonal-Games>/.claude/skills/app-icons/make-icons.mjs --sheet`.
+It writes `icons/aesthetics/`, `app.webmanifest` and the icon lines in
+`index.html`; never edit those by hand, change the art and run it again.
+Look at `.app-icons/sheet.png` (ignored) before committing. The deploy
+copies `icons/` and `app.webmanifest`, so a new published file or folder
+goes into the `cp` line in `.github/workflows/pages.yml` too.
+
 ## Building something in an aesthetic
 
 When Timothy says "build this in Aeros" (or Alyssian, Starprint, Golf 97,

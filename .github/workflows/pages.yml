@@ -31,10 +31,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # The site is the studio and its library: everything except the tooling.
+      # icons/ and app.webmanifest are the home-screen icon a phone saves
+      # (app-icons.json says how they are made).
       - name: Assemble and push the site
         run: |
           mkdir -p _site
-          cp -r css js library index.html _site/
+          cp -r css js library icons index.html app.webmanifest _site/
           # dist/ is what the other repos vendor from — see docs/CONSUMING.md.
           # It is committed, so there is nothing to build here; but it is
           # verified, because publishing a distribution that no longer matches

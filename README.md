@@ -69,6 +69,20 @@ the top pane came up blank on a real phone. And **`vh` is declared before
 doesn't know is invalid at computed-value time, so a bare `dvh` would leave
 the rack with no height at all on an older iOS.
 
+**Saved to a home screen, it has its own icon**: a fan of swatches on
+claret, drawn in `icons/aesthetics.svg`. It wears the studio's default look,
+Alyssian (the first on the shelf): claret ground, ink lines, a brass rivet,
+paper-pale tips, with accents from the shelf on the blades. `app-icons.json`
+lists the app, and the app-icons skill's `make-icons.mjs` (in
+Interpersonal-Games, `.claude/skills/app-icons/`) draws every size into
+`icons/aesthetics/`, writes `app.webmanifest` and puts the icon lines in
+`index.html`. Change the art and run it again; never edit the pictures by
+hand. `app.webmanifest` is the phone's manifest and has nothing to do with
+`dist/manifest.json`, which is the distribution's. A phone keeps the icon it
+saved, so after a change remove the app and save it again. On an iPhone a
+saved app keeps its own storage, apart from Safari's, so working copies made
+in Safari do not show in the saved app, nor the other way round.
+
 Edits live in localStorage as a working copy per aesthetic; the committed file
 shows through until you touch something, and **Revert to file** throws the
 working copy away. Shipping a change is an export: the JSON tab, Copy or
@@ -193,6 +207,8 @@ passing assertion doesn't mean Alyssian looks like Alyssian.
 | `js/editor.js` | The studio: list, generated form, working copies, events. |
 | `js/export.js` | JSON / CSS / guide generators. |
 | `index.html`, `css/studio.css` | The room and the demo site inside it. |
+| `icons/aesthetics.svg`, `app-icons.json` | The home-screen icon's art, and the list the icon script reads. |
+| `icons/aesthetics/`, `app.webmanifest` | Made from those by the icon script: every icon size, and the phone's manifest. |
 
 No dependencies, no build step, no framework. Two-space indent, single quotes,
 template literals for HTML. Comments explain *why*. Copy is plain, specific and
