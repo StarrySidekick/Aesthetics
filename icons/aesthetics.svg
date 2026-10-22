@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- The studio's home-screen icon: a fan deck of swatches, the way a
+       studio of style guides keeps its colours. It is drawn in the studio's
+       default look, Alyssian (the first on the shelf): its claret for the
+       ground, its ink for the lines, its brass for the rivet, its paper for
+       the light end of each swatch. The five blades are accents from the
+       shelf, back to front: Stelaine, Hikari, Aeros, Golf 97 and Fantaccio's
+       gold. make-icons.mjs (the app-icons skill) turns this into every size;
+       keep anything that matters inside the middle circle (80% across). -->
+  <defs>
+    <!-- One blade: a strip with a round foot centred on the rivet at
+         (512, 740), so every blade's foot falls on the same circle however
+         it is turned. Each blade below is this strip turned, filled with its
+         colour and two paler bands at its tip, then outlined in ink. -->
+    <path id="strip" d="M428 740 V290 A30 30 0 0 1 458 260 H566 A30 30 0 0 1 596 290 V740 A84 84 0 0 1 428 740 Z"/>
+    <clipPath id="blade"><use href="#strip" xlink:href="#strip"/></clipPath>
+  </defs>
+  <rect width="1024" height="1024" fill="#8E3B38"/>
+  <g stroke="#2A241C" stroke-width="16" stroke-linejoin="round">
+    <g transform="rotate(-42 512 740)">
+      <g clip-path="url(#blade)" stroke="none">
+        <rect x="428" y="260" width="168" height="570" fill="#7A6BC4"/>
+        <rect x="428" y="260" width="168" height="118" fill="#BDB3D2"/>
+        <rect x="428" y="378" width="168" height="118" fill="#9C90CB"/>
+      </g>
+      <use href="#strip" xlink:href="#strip" fill="none"/>
+    </g>
+    <g transform="rotate(-21 512 740)">
+      <g clip-path="url(#blade)" stroke="none">
+        <rect x="428" y="260" width="168" height="570" fill="#0070EC"/>
+        <rect x="428" y="260" width="168" height="118" fill="#86B5E4"/>
+        <rect x="428" y="378" width="168" height="118" fill="#4493E8"/>
+      </g>
+      <use href="#strip" xlink:href="#strip" fill="none"/>
+    </g>
+    <g>
+      <g clip-path="url(#blade)" stroke="none">
+        <rect x="428" y="260" width="168" height="570" fill="#18A6C4"/>
+        <rect x="428" y="260" width="168" height="118" fill="#91CED2"/>
+        <rect x="428" y="378" width="168" height="118" fill="#56BACB"/>
+      </g>
+      <use href="#strip" xlink:href="#strip" fill="none"/>
+    </g>
+    <g transform="rotate(21 512 740)">
+      <g clip-path="url(#blade)" stroke="none">
+        <rect x="428" y="260" width="168" height="570" fill="#2E7D3A"/>
+        <rect x="428" y="260" width="168" height="118" fill="#9BBB94"/>
+        <rect x="428" y="378" width="168" height="118" fill="#659D68"/>
+      </g>
+      <use href="#strip" xlink:href="#strip" fill="none"/>
+    </g>
+    <g transform="rotate(42 512 740)">
+      <g clip-path="url(#blade)" stroke="none">
+        <rect x="428" y="260" width="168" height="570" fill="#E8A33D"/>
+        <rect x="428" y="260" width="168" height="118" fill="#EFCC95"/>
+        <rect x="428" y="378" width="168" height="118" fill="#EBB86A"/>
+      </g>
+      <use href="#strip" xlink:href="#strip" fill="none"/>
+    </g>
+    <!-- The brass rivet the fan turns on. -->
+    <circle cx="512" cy="740" r="54" fill="#A9793F"/>
+  </g>
+  <circle cx="512" cy="740" r="23" fill="#D9B57C"/>
+</svg>
